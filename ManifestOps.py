@@ -41,7 +41,7 @@ def get_manifest():
     #print(manifest)
     mani_url = 'http://www.bungie.net' + manifest['Response']['mobileWorldContentPaths']['en']
     print(mani_url)
-    # Download the file, write it to MANZIP
+    # Download the file, write it to MANZIPtt
     r = requests.get(mani_url)
     with open("MANZIP", "wb") as zip:
         zip.write(r.content)
