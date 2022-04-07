@@ -48,7 +48,7 @@ def get_manifest():
     print("Download Complete!")
 
     # Extract the file contents, and rename the extracted file
-    # to 'Manifest.content'
+    # to 'Manifest.content'tt
     with zipfile.ZipFile('MANZIP') as zip:
         name = zip.namelist()
         zip.extractall()
