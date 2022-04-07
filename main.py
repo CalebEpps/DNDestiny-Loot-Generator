@@ -11,7 +11,21 @@ import requests
 import json
 
 
-# Request Example
+# Populate destinyDB.json on first run. Decodes hashes from manifest and sorts them into the
+# appropriate tables
+
+# to get information, use SQLite database worldContent to get hashes
+# Use pydest Async Loading in order to decode hashes.
+# Only decode on first startup. You may also delete manifest once the user has
+# generated the database of relevant items.
+
+# UI:
+# Engram Type
+# Possible Items
+# Season Checklist
+# Lock by Class
+
+
 async def main():
     if(os.path.exists('destinyDB.txt')):
         print("\n\nDatabase Exists, continuing...\n\n")
