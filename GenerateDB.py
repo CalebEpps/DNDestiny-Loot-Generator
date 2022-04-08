@@ -22,6 +22,7 @@ class GenerateDB:
     season_List = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16}
 
     # {Weapon Name: {Type, Rarity, Description, Lore}}
+    global weaponDict
     weaponDict = {}
 
     # {Item Name: {Type, Rarity, Description, Lore}}
@@ -40,17 +41,20 @@ class GenerateDB:
         destiny = pydest.Pydest("No Key Needed, DB Already Downloaded")
         # Move the items
         conDefault = sqlite3.connect(path)
-        conModified = sqlite3.connect("modifiedDB.db")
         cursorDefault = conDefault.cursor()
-        #WHERE json_extract(j.value, '$.name') LIKE 'NAME_IN%');
-        for row in cursorDefault.execute("select * from DestinyInventoryItemDefinition limit 5"):
-            print(row[1])
+        # You were overthinking this way too hard. Now just build dictionaries and learn to make a pickle.
+        counter = 0
+        for row in cursorDefault.execute("select * from DestinyInventoryItemDefinition"):
             jsonT = json.loads(row[1])
-            print(jsonT['displayProperties']['name'])
-            print(jsonT['itemTypeAndTierDisplayName'])
-            print("\n")
-            # VERY LARGE insert into statement where you insert the defaultDB values into the modifiedDB values using Regex.
-            # Will take a large statement but will save a lot of time later. :) MAKE IT MODULAR
+            if jsonT['displayProperties']['name'] == "Classified":
+                print("Classified")
+            else:
+                if jsonT['itemTypeDisplayName'] == "Hand Cannon":
+                    weaponDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'], "Rarity": jsonT['inventory']['tierTypeName']}
+                    counter += 1
+        for key in weaponDict:
+            print("The hand cannon's name is " + key +  "and it's a/an " + weaponDict[key]["Rarity"] + ".")
+
 
 
 GenerateDB().splitUpDB()
