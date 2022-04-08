@@ -3,6 +3,7 @@ import os.path
 import tkinter as tk
 from tkinter import *
 
+import async_timeout
 import pydest
 from os.path import exists
 import sqlite3
@@ -25,20 +26,24 @@ import json
 # Season Checklist
 # Lock by Class
 
+# Handle UI / Initialization
 class Main:
-    async def main():
-        if (os.paths.exists("destinyDB.json")):
-           print("Database already exists")
-      else:
-           print("Database does not exist.")
+    destiny = pydest.Pydest("941d92034e1b4563a6eefd80dc6786f8")
+
+    async def main(self):
+        if os.path.exists("destinyDB.json"):
+            print("Database already exists")
+        else:
+            print("Database does not exist.")
+            destiny = pydest.Pydest('na')
+            json = await destiny.decode_hash(80726883, 'DestinyActivityDefinition')
+            await destiny.close()
+            print(json)
+
 
 # runGenerateDB
 
-# Build Dictionaries of each season at startup, save in encrypted files.
-# Access hashes via dictionary and pass them as params to decode_hash
-    async def generateDB():
-
-
+# Build custom DB at startup based on current manifest version. "DestinyDB"
 
 
 
@@ -57,9 +62,9 @@ class Main:
 
 
 loop = asyncio.get_event_loop()
-loop.run_until_complete(main())
-# loop.close()
-
+main = Main()
+loop.run_until_complete(main.main())
+loop.close()
 
 # How to make window and display image
 # class MainWindow(tk.Tk):
