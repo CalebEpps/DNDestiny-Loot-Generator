@@ -29,6 +29,10 @@ class GetManifest:
         os.rename(name[0], 'Manifest.content')
         print('Unzipped!')
 
+        if os.path.exists("MANZIP"):
+            os.remove("MANZIP")
+
+        if os.path.exists("world_sql_content_13b84b23c9f2eb57c71ac6633ffd8c3f.content"):
+            os.remove("world_sql_content_13b84b23c9f2eb57c71ac6633ffd8c3f.content")
 
 
-GetManifest().get_manifest()
