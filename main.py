@@ -27,45 +27,34 @@ import json
 # Lock by Class
 
 # Handle UI / Initialization
+from GenerateDB import GenerateDB
+
+
 class Main:
-    destiny = pydest.Pydest("941d92034e1b4563a6eefd80dc6786f8")
-
-    async def main(self):
-        if os.path.exists("destinyDB.json"):
-            print("Database already exists")
-        else:
-            print("Database does not exist.")
-            destiny = pydest.Pydest('na')
-            json = await destiny.decode_hash(80726883, 'DestinyActivityDefinition')
-            await destiny.close()
-            print(json)
-
-
-# runGenerateDB
-
-# Build custom DB at startup based on current manifest version. "DestinyDB"
+   def __init__(self):
+       UI().createInitialWindow()
 
 
 
-# async def main():
-#     if(os.path.exists('destinyDB.txt')):
-#         print("\n\nDatabase Exists, continuing...\n\n")
-#     else:
-#         destiny = pydest.Pydest("941d92034e1b4563a6eefd80dc6786f8")
-#         jsonTest = await destiny.api.get_destiny_manifest()
-#         mani_url = 'http://www.bungie.net' + jsonTest['Response']['jsonWorldContentPaths']['en']['']
-#         jsonDB = json.loads(requests.get(mani_url).text)
-#         print(jsonDB)
-#         print(mani_url)
-#         with open('Test_FIles/destinyDB.txt', 'w') as f:
-#             json.dump(jsonDB, f)
+class UI(tk.Tk):
+    def createInitialWindow(self):
+        self.title("Welcome to D2 Loot Gen v0.0.1")
+        self.geometry('800x600')
+
+        engramSelectFrame = tk.Frame()
+        engramSelectFrame.pack()
 
 
-loop = asyncio.get_event_loop()
-main = Main()
-loop.run_until_complete(main.main())
-loop.close()
 
+        self.mainloop()
+
+
+
+
+
+
+if __name__ == '__main__':
+    Main()
 # How to make window and display image
 # class MainWindow(tk.Tk):
 #     def __init__(self):
