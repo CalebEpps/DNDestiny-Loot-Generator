@@ -12,11 +12,11 @@ class GetManifest:
         manifest_url = 'http://www.bungie.net/Platform/Destiny2/Manifest/'
         HEADERS = {"x-api-key": "941d92034e1b4563a6eefd80dc6786f8"}
         # get the manifest location from the json
-        r = requests.get(manifest_url, headers=HEADERS, stream=True)
+        r = requests.get(manifest_url, headers=HEADERS)
 
         manifest = r.json()
         mani_url = 'http://www.bungie.net' + manifest['Response']['mobileWorldContentPaths']['en']
-        r = requests.get(mani_url)
+        r = requests.get(mani_url, stream=True)
 
         # Download the file, write it to 'MANZIP'
         with open("MANZIP", "wb") as zip:

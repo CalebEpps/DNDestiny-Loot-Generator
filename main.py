@@ -2,6 +2,7 @@ import asyncio
 import os.path
 import tkinter as tk
 from tkinter import *
+from tkinter.ttk import Progressbar
 
 import async_timeout
 import pydest
@@ -30,27 +31,28 @@ from GenerateDB import GenerateDB
 
 
 class Main:
+
     def __init__(self):
         UI().createInitialWindow()
-        GenerateDB().initializationRun()
 
 
 class UI(tk.Tk):
     def createInitialWindow(self):
         waitLabel = Label(text="Please wait while the database is loading . . .")
+        waitLabel.anchor(anchor=CENTER)
 
-        initializationWindow = tk.Frame()
-        self.geometry('600x400')
-
-
+        mainFrame = Frame()
 
 
-
-
-
-
-        initializationWindow.pack()
+        pbar = Progressbar(self, orient=HORIZONTAL, mode='determinate')
+        pbar.anchor(anchor=CENTER)
+        pbar.pack()
         waitLabel.pack()
+        mainFrame.pack(expand=1)
+
+        GenerateDB().initializationRun()
+
+        self.eval('tk::PlaceWindow . center')
 
         self.mainloop()
 
