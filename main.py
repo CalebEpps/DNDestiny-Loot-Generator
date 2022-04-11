@@ -11,7 +11,6 @@ from PIL import ImageTk, Image
 import requests
 import json
 
-
 # Populate destinyDB.json on first run. Decodes hashes from manifest and sorts them into the
 # appropriate tables
 
@@ -31,26 +30,29 @@ from GenerateDB import GenerateDB
 
 
 class Main:
-   def __init__(self):
-       UI().createInitialWindow()
-
+    def __init__(self):
+        UI().createInitialWindow()
+        GenerateDB().initializationRun()
 
 
 class UI(tk.Tk):
     def createInitialWindow(self):
-        self.title("Welcome to D2 Loot Gen v0.0.1")
-        self.geometry('800x600')
+        waitLabel = Label(text="Please wait while the database is loading . . .")
 
-        engramSelectFrame = tk.Frame()
-        engramSelectFrame.pack()
+        initializationWindow = tk.Frame()
+        self.geometry('600x400')
 
 
+
+
+
+
+
+
+        initializationWindow.pack()
+        waitLabel.pack()
 
         self.mainloop()
-
-
-
-
 
 
 if __name__ == '__main__':

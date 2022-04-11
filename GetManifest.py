@@ -1,5 +1,6 @@
 import os
 import zipfile
+from tqdm import tqdm
 
 import requests
 
@@ -11,14 +12,24 @@ class GetManifest:
         manifest_url = 'http://www.bungie.net/Platform/Destiny2/Manifest/'
         HEADERS = {"x-api-key": "941d92034e1b4563a6eefd80dc6786f8"}
         # get the manifest location from the json
-        r = requests.get(manifest_url, headers=HEADERS)
+        r = requests.get(manifest_url, headers=HEADERS, stream=True)
+
         manifest = r.json()
         mani_url = 'http://www.bungie.net' + manifest['Response']['mobileWorldContentPaths']['en']
+        r = requests.get(mani_url)
 
         # Download the file, write it to 'MANZIP'
-        r = requests.get(mani_url)
         with open("MANZIP", "wb") as zip:
-            zip.write(r.content)
+            manifest_Size = int(r.headers.get('content-length', 0))
+            print(manifest_Size)
+            block_Size = 1024
+            progress_bar = tqdm(total=manifest_Size, unit='iB', unit_scale=True)
+            for data in r.iter_content(block_Size):
+                progress_bar.update(len(data))
+                zip.write(data)
+            progress_bar.close()
+        if manifest_Size != 0 and progress_bar.n != manifest_Size:
+            print("ERROR, something went wrong")
         print("Download Complete!")
 
         # Extract the file contents, and rename the extracted file
