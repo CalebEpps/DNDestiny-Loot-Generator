@@ -1,0 +1,44 @@
+[
+  {
+    "Type":  "Auto Rifles",
+    "Slot 1 Perks": ["Firing Line", "Focused Fire", "Hip Fire"],
+    "Slot 2 Perks": ["Exhumed", "Explosive Rounds", "Lightweight", "Rangefinder", "Unflinching"],
+    "Slot 3 Perks": ["Crowd Control", "Demolitionist", "One-Two Punch", "Tap the Trigger"]
+  },
+
+  {
+    "Type": "Combat Bow",
+    "Slot 1 Perks": ["Field Scout", "Full Draw", "Natural String"],
+    "Slot 2 Perks": ["Elemental", "Rangefinder", "Shoot to Loot", "Snapshot Sights", "Threat Detector Sights"],
+    "Slot 3 Perks": ["Archer's Tempo", "Final Round", "Hidden Hand"]
+  },
+
+  {
+    "Type": "Fusion Rifles",
+    "Slot 1 Perks": ["Accelerated Coils", "Enhanced Battery", "Particle Scattering"],
+    "Slot 2 Perks": ["Battle Runner", "Osmosis", "Rangefinder", "Snapshot Sights"],
+    "Slot 3 Perks": ["Demolitionist", "One-Two Punch", "Shieldbreaker", "Surrounded"]
+  },
+
+  {
+    "Type": "Grenade Launcher",
+    "Slot 1 Perks": ["Perfect Balance", "Crowd Control", "Voltatile Launch"],
+    "Slot 2 Perks": ["Elemental", "Exhumed", "Osmosis", "Rangefinder", "Snapshot Sights"],
+    "Slot 3 Perks": ["Full Court", "Ricochet Rounds", "Sticky Grenades", "Wave Grenades"]
+  },
+
+  {
+     "Type":  "Hand Cannon",
+    "Slot 1 Perks": ["Opening Shot", "Focused Fire", "Outlaw"],
+    "Slot 2 Perks": ["Exhumed", "Explosive Rounds", "Snapshot Sights", "Rangefinder"],
+    "Slot 3 Perks": ["Army of One", "Crowd Control", "Final Round", "Luck In the Chamber"]
+  },
+
+  {
+     "Type":  "Light Machine Gun",
+    "Slot 1 Perks": ["Firing Line", "Focused Fire", "Tap the Trigger"],
+    "Slot 2 Perks": ["Armor Piercing Rounds", "Explosive Rounds", "Elemental", "Rangefinder", "Snapshot Sights", "Threat Detector Sights"],
+    "Slot 3 Perks": ["Army of One", "Demolitionist", "Persistence", "Vorpal Weapon"]
+  }
+
+]
