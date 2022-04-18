@@ -6,7 +6,7 @@ import requests
 
 
 class GetManifest:
-
+    dlProgress = 0;
 
     def get_manifest(self):
         manifest_url = 'http://www.bungie.net/Platform/Destiny2/Manifest/'
@@ -26,6 +26,8 @@ class GetManifest:
             progress_bar = tqdm(total=manifest_Size, unit='iB', unit_scale=True)
             for data in r.iter_content(block_Size):
                 progress_bar.update(len(data))
+                self.dlProgress = len(data)
+                print(self.dlProgress)
                 zip.write(data)
             progress_bar.close()
         if manifest_Size != 0 and progress_bar.n != manifest_Size:

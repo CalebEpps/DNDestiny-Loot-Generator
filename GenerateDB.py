@@ -2,26 +2,30 @@ import json
 import os
 import pickle
 import sqlite3
+import zipfile
 from re import search
+from sqlite3 import Time
 
 import pandas as pandas
 
 # noinspection PyGlobalUndefined,PyRedeclaration
+import requests
+from tqdm import tqdm
+
 from GetManifest import GetManifest
 
 
 class GenerateDB:
+    dlProgress = 0
     manifestPath = "Manifest.content"
     databasePath = "bin/database.dat"
     watermarksPath = "bin/watermark-to-season.json"
 
     weapon_Types = {"Hand Cannon", "Scout Rifle", "Sniper Rifle", "Submachine Gun",
                     "Auto Rifle", "Sidearm", "Rocket Launcher", "Machine Gun",
-                    "Fusion Rile", "Linear Fusion Rifle", "Shotgun", "Grenade Launcher"}
+                    "Fusion Rile", "Linear Fusion Rifle", "Shotgun", "Grenade Launcher", "Glaive",
+                    "Sword"}
 
-    ChancesDict = {'Rare': 75, 'Legendary': 20, 'Exotic': 5}
-
-    # USE ICON WATERMARK TO DETERMINE SEASON!!!!!!
     destinyDict = {}
 
     # {Item Name: {Type, Rarity, Description, Lore}}
@@ -33,25 +37,6 @@ class GenerateDB:
 
     def __init__(self):
         print("Generating DB. . . ")
-        # initializationRun()
-        pass
-
-    def initializationRun(self):
-        if os.path.exists(self.manifestPath) and os.path.exists(self.databasePath):
-            print("Start Program")
-            self.destinyDict = pandas.read_pickle(self.databasePath)
-
-            for i in self.destinyDict:
-                print(i)
-                print(self.destinyDict[i]["season"])
-        else:
-            print("Files Missing. Reacquiring....")
-            if (os.path.exists(self.manifestPath)):
-                self.generateDictionaries()
-            else:
-                Manifest = GetManifest()
-                Manifest.get_manifest()
-                self.generateDictionaries()
 
     def generateDictionaries(self):  # Move the items
         conDefault = sqlite3.connect("Manifest.content")
