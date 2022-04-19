@@ -109,7 +109,7 @@ class UI:
     def initializationRun(self):
         if os.path.exists(self.manifestPath) and os.path.exists(self.databasePath):
             print("Start Program")
-            self.db = pandas.read_pickle(self.databasePath)
+            self.db.destinyDict = pandas.read_pickle(self.databasePath)
 
             for i in self.db.destinyDict:
                 print(i)

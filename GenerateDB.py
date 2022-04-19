@@ -21,7 +21,7 @@ class GenerateDB:
 
     weapon_Types = {"Hand Cannon", "Scout Rifle", "Sniper Rifle", "Submachine Gun",
                     "Auto Rifle", "Sidearm", "Rocket Launcher", "Machine Gun",
-                    "Fusion Rile", "Linear Fusion Rifle", "Shotgun", "Grenade Launcher", "Glaive",
+                    "Fusion Rile", "Linear Fusion Rifle", "Shotgun", "Grenade Launcher",
                     "Sword"}
 
     destinyDict = {}
