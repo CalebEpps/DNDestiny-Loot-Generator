@@ -12,8 +12,6 @@ import pandas as pandas
 import requests
 from tqdm import tqdm
 
-from GetManifest import GetManifest
-
 
 class GenerateDB:
     dlProgress = 0
@@ -59,7 +57,8 @@ class GenerateDB:
                                                                                 "season": self.getSeason(jsonT),
                                                                                 "icon": [
                                                                                     jsonT['displayProperties']['icon']],
-                                                                                "screenshot": jsonT['screenshot']}
+                                                                                "screenshot": jsonT['screenshot'],
+                                                                                "damage type": jsonT['defaultDamageType']}
                     elif jsonT['classType'] == 0:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
@@ -69,7 +68,8 @@ class GenerateDB:
                                                                                 "season": self.getSeason(jsonT),
                                                                                 "icon": [
                                                                                     jsonT['displayProperties']['icon']],
-                                                                                "screenshot": jsonT['screenshot']}
+                                                                                "screenshot": jsonT['screenshot'],
+                                                                                "armor tier": 'Heavy'}
                     elif jsonT['classType'] == 1:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
@@ -79,7 +79,8 @@ class GenerateDB:
                                                                                 "season": self.getSeason(jsonT),
                                                                                 "icon": [
                                                                                     jsonT['displayProperties']['icon']],
-                                                                                "screenshot": jsonT['screenshot']}
+                                                                                "screenshot": jsonT['screenshot'],
+                                                                                "armor tier": 'Medium'}
                     elif jsonT['classType'] == 2:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
@@ -89,7 +90,8 @@ class GenerateDB:
                                                                                 "season": self.getSeason(jsonT),
                                                                                 "icon": [
                                                                                     jsonT['displayProperties']['icon']],
-                                                                                "screenshot": jsonT['screenshot']}
+                                                                                "screenshot": jsonT['screenshot'],
+                                                                                "armor tier": 'Light'}
                 except:
                     # This is the safe version of adding an item. No icon + No Screenshot. Stops errors if item
                     # doesn't have an icon.
@@ -99,28 +101,32 @@ class GenerateDB:
                                                                                 "Rarity": jsonT['inventory'][
                                                                                     'tierTypeName'],
                                                                                 "HashCode": row[0], "classType": 3,
-                                                                                "season": self.getSeason(jsonT)}
+                                                                                "season": self.getSeason(jsonT),
+                                                                                "Damage Type": jsonT['defaultDamageType']}
                     elif jsonT['classType'] == 0:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
                                                                                 "Rarity": jsonT['inventory'][
                                                                                     'tierTypeName'],
                                                                                 "HashCode": row[0], "classType": 0,
-                                                                                "season": self.getSeason(jsonT)}
+                                                                                "season": self.getSeason(jsonT),
+                                                                                "armor tier": 'Heavy'}
                     elif jsonT['classType'] == 1:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
                                                                                 "Rarity": jsonT['inventory'][
                                                                                     'tierTypeName'],
                                                                                 "HashCode": row[0], "classType": 1,
-                                                                                "season": self.getSeason(jsonT)}
+                                                                                "season": self.getSeason(jsonT),
+                                                                                "armor tier": 'Medium'}
                     elif jsonT['classType'] == 2:
                         print(jsonT['displayProperties']['name'])
                         self.destinyDict[jsonT['displayProperties']['name']] = {"type": jsonT['itemTypeDisplayName'],
                                                                                 "Rarity": jsonT['inventory'][
                                                                                     'tierTypeName'],
                                                                                 "HashCode": row[0], "classType": 2,
-                                                                                "season": self.getSeason(jsonT)}
+                                                                                "season": self.getSeason(jsonT),
+                                                                                "armor tier": 'Light'}
 
         # BEFORE closing cursor, be sure to create entries for engrams to add to file
 

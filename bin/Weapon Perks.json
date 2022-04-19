@@ -28,17 +28,87 @@
   },
 
   {
-     "Type":  "Hand Cannon",
+    "Type":  "Hand Cannon",
     "Slot 1 Perks": ["Opening Shot", "Focused Fire", "Outlaw"],
     "Slot 2 Perks": ["Exhumed", "Explosive Rounds", "Snapshot Sights", "Rangefinder"],
     "Slot 3 Perks": ["Army of One", "Crowd Control", "Final Round", "Luck In the Chamber"]
   },
 
   {
-     "Type":  "Light Machine Gun",
+    "Type":  "Machine Gun",
     "Slot 1 Perks": ["Firing Line", "Focused Fire", "Tap the Trigger"],
     "Slot 2 Perks": ["Armor Piercing Rounds", "Explosive Rounds", "Elemental", "Rangefinder", "Snapshot Sights", "Threat Detector Sights"],
     "Slot 3 Perks": ["Army of One", "Demolitionist", "Persistence", "Vorpal Weapon"]
+  },
+
+  {
+    "Type":  "Linear Fusion Rifle",
+    "Slot 1 Perks": ["Accelerated Coils", "Shield Breaker", "Enhanced Battery"],
+    "Slot 2 Perks": ["Lightweight", "Osmosis", "Rangefinder", "Snapshot Sights", "Threat Detector Sights"],
+    "Slot 3 Perks": ["Final Round", "Mulligan", "Vorpal Weapon"]
+  },
+
+  {
+    "Type":  "Pulse Rifle",
+    "Slot 1 Perks": ["Featherweight Bolt", "Focused Fire", "Headseeker"],
+    "Slot 2 Perks": ["Exhumed", "Lightweight", "Rangefinder", "Snapshot Sights", "Unflinching"],
+    "Slot 3 Perks": ["Demolitionist", "Hidden Hand", "Luck in the Chamber", "Ricochet Rounds"]
+  },
+
+  {
+    "Type":  "Rocket Launcher",
+    "Slot 1 Perks": ["Dual Barrel", "Heavy Payload", "Impact Casing", "Tracking"],
+    "Slot 2 Perks": ["Battle Runner", "Elemental", "Rangefinder", "Snapshot Sights"],
+    "Slot 3 Perks": ["Army of One", "Black Powder", "Cluster Bombs", "Demolitionist", "Javelin"]
+  },
+
+  {
+    "Type":  "Scout Rifle",
+    "Slot 1 Perks": ["Field Scout", "Take a Knee", "Zen Moment"],
+    "Slot 2 Perks": ["Explosive Rounds", "Lightweight", "Rangefinder", "Snapshot Sights", "Threat Detector Sights"],
+    "Slot 3 Perks": ["Army of One", "Luck in the Chamber", "Rapid Hit", "Vorpal Weapon"]
+  },
+
+  {
+    "Type":  "Shotgun",
+    "Slot 1 Perks": ["Precision Frame", "Rifled Barrel", "Shot Package"],
+    "Slot 2 Perks": ["Armor-Piercing Rounds", "Battle Runner", "Elemental", "Exhumed", "Snapshot Sights"],
+    "Slot 3 Perks": ["Final Round", "One-Two Punch", "Surrounded", "Trench Barrel"]
+  },
+
+  {
+    "Type":  "Sidearm",
+    "Slot 1 Perks": ["Featherweight Bolt", "Perfect Balance", "Under Pressure"],
+    "Slot 2 Perks": ["Battle Runner", "Elemental", "Lightweight", "Osmosis", "Rangefinder", "Snapshot Sights"],
+    "Slot 3 Perks": ["Demolitionist", "Rapid Hit", "Swashbuckler", "Tap the Trigger", "Vorpal Weapon"]
+  },
+
+  {
+    "Type":  "Sniper Rifle",
+    "Slot 1 Perks": ["Box Breathing", "Opening Shot", "Hip Fire"],
+    "Slot 2 Perks": ["Armor-Piercing Rounds", "Elemental", "Explosive Rounds", "Rangefinder", "Snapshot Sights", "Threat Detector Sights"],
+    "Slot 3 Perks": ["Final Round", "Rapid Hit", "Take a Knee"]
+  },
+
+  {
+    "Type":  "Submachine Gun",
+    "Slot 1 Perks": ["Hip Fire", "Lightweight Frame", "Secret Round"],
+    "Slot 2 Perks": ["Battle Runner", "Explosive Rounds", "Lightweight", "Rangefinder", "Snapshot Sights"],
+    "Slot 3 Perks": ["Crowd Control", "One-Two Punch", "Surrounded", "Swashbuckler", "Tap the Trigger"]
+  },
+
+  {
+    "Type":  "Trace Rifle",
+    "Slot 1 Perks": ["Enhanced Batter", "Firing Line", "Supercharger"],
+    "Slot 2 Perks": ["Exhumed", "Extended Barrel", "Lightweight", "Osmosis"],
+    "Slot 3 Perks": ["Augmented Focus", "Persistence", "Vorpal Weapon"]
+  },
+
+  {
+    "Type":  "Sword",
+    "Slot 1 Perks": ["Elemental Shot Capacity"],
+    "Slot 2 Perks": ["Enduring Edge", "Honed Edge", "Jagged Edge", "Transmat Hilt"],
+    "Slot 3 Perks": ["Adaptive Frame", "Burst Frame", "Caster Frame", "Heavy Frame", "Whirlwind Frame"]
   }
 
 ]

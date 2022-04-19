@@ -28,7 +28,7 @@ from GenerateDB import GenerateDB
 class Main:
 
     def __init__(self):
-        print("Program Started")
+        UI().initializationRun()
 
 
 class UI:
@@ -62,7 +62,7 @@ class UI:
         self.window.setLayout(mainGrid)
 
         self.window.show()
-
+        self.app.exec()
 
     def get_manifest(self):
         manifest_url = 'http://www.bungie.net/Platform/Destiny2/Manifest/'
@@ -98,7 +98,6 @@ class UI:
         os.rename(name[0], 'Manifest.content')
         print('Unzipped!')
 
-
         self.window.hide()
 
         if os.path.exists("MANZIP"):
@@ -108,7 +107,6 @@ class UI:
             os.remove("world_sql_content_13b84b23c9f2eb57c71ac6633ffd8c3f.content")
 
     def initializationRun(self):
-        self.app.exec()
         if os.path.exists(self.manifestPath) and os.path.exists(self.databasePath):
             print("Start Program")
             self.db = pandas.read_pickle(self.databasePath)
