@@ -6,8 +6,16 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # For the sliders, allow this:
 # If sliders.values > 100 and < 200, drop 2 engrams out of 200%.
 # If sliders.values > 200 and <= 300, drop 3 engrams out of 300%
+from GenerateDB import GenerateDB
+from dbOps import dbOps
+
 
 class Ui_MainWindow(object):
+    dpOps = dbOps()
+    generateDB = GenerateDB()
+
+    List_Of_Toggleables = []
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1133, 424)
@@ -200,6 +208,7 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout = QtWidgets.QVBoxLayout()
         self.seasons_One_To_Eight_Layout.setObjectName("seasons_One_To_Eight_Layout")
         self.red_War_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.red_War_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -214,6 +223,7 @@ class Ui_MainWindow(object):
         self.red_War_Toggleable.setObjectName("red_War_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.red_War_Toggleable)
         self.osiris_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.osiris_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -226,7 +236,9 @@ class Ui_MainWindow(object):
         self.osiris_Toggleable.setChecked(True)
         self.osiris_Toggleable.setObjectName("osiris_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.osiris_Toggleable)
+
         self.warmind_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.warmind_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -239,7 +251,9 @@ class Ui_MainWindow(object):
         self.warmind_Toggleable.setChecked(True)
         self.warmind_Toggleable.setObjectName("warmind_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.warmind_Toggleable)
+
         self.outlaw_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.outlaw_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -252,7 +266,9 @@ class Ui_MainWindow(object):
         self.outlaw_Toggleable.setChecked(True)
         self.outlaw_Toggleable.setObjectName("outlaw_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.outlaw_Toggleable)
+
         self.forge_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.forge_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -265,7 +281,9 @@ class Ui_MainWindow(object):
         self.forge_Toggleable.setChecked(True)
         self.forge_Toggleable.setObjectName("forge_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.forge_Toggleable)
+
         self.drifter_Toggleabel = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.drifter_Toggleabel)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -278,7 +296,9 @@ class Ui_MainWindow(object):
         self.drifter_Toggleabel.setChecked(True)
         self.drifter_Toggleabel.setObjectName("drifter_Toggleabel")
         self.seasons_One_To_Eight_Layout.addWidget(self.drifter_Toggleabel)
+
         self.opulence_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.opulence_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -291,7 +311,9 @@ class Ui_MainWindow(object):
         self.opulence_Toggleable.setChecked(True)
         self.opulence_Toggleable.setObjectName("opulence_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.opulence_Toggleable)
+
         self.undying_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.undying_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -305,9 +327,12 @@ class Ui_MainWindow(object):
         self.undying_Toggleable.setObjectName("undying_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.undying_Toggleable)
         self.season_Toggleables_Layout.addLayout(self.seasons_One_To_Eight_Layout)
+
         self.Seasons_Eight_To_Sixteen_Layout = QtWidgets.QVBoxLayout()
         self.Seasons_Eight_To_Sixteen_Layout.setObjectName("Seasons_Eight_To_Sixteen_Layout")
+
         self.dawn_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.dawn_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -320,7 +345,9 @@ class Ui_MainWindow(object):
         self.dawn_Toggleable.setChecked(True)
         self.dawn_Toggleable.setObjectName("dawn_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.dawn_Toggleable)
+
         self.worthy_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.worthy_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -333,7 +360,9 @@ class Ui_MainWindow(object):
         self.worthy_Toggleable.setChecked(True)
         self.worthy_Toggleable.setObjectName("worthy_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.worthy_Toggleable)
+
         self.arrivals_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.arrivals_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -344,10 +373,11 @@ class Ui_MainWindow(object):
         self.arrivals_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.arrivals_Toggleable.setCheckable(True)
         self.arrivals_Toggleable.setChecked(True)
-
         self.arrivals_Toggleable.setObjectName("arrivals_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.arrivals_Toggleable)
+
         self.hunt_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.hunt_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -360,7 +390,9 @@ class Ui_MainWindow(object):
         self.hunt_Toggleable.setChecked(True)
         self.hunt_Toggleable.setObjectName("hunt_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.hunt_Toggleable)
+
         self.chosen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.chosen_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -373,7 +405,9 @@ class Ui_MainWindow(object):
         self.chosen_Toggleable.setChecked(True)
         self.chosen_Toggleable.setObjectName("chosen_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.chosen_Toggleable)
+
         self.splicer_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.splicer_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -386,7 +420,9 @@ class Ui_MainWindow(object):
         self.splicer_Toggleable.setChecked(True)
         self.splicer_Toggleable.setObjectName("splicer_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.splicer_Toggleable)
+
         self.lost_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.lost_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -399,7 +435,9 @@ class Ui_MainWindow(object):
         self.lost_Toggleable.setChecked(True)
         self.lost_Toggleable.setObjectName("lost_Toggleable")
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.lost_Toggleable)
+
         self.risen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
+        self.List_Of_Toggleables.append(self.risen_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -454,6 +492,7 @@ class Ui_MainWindow(object):
         self.class_Type_Vertical_Layout.addWidget(self.warlock_Type_RB_3)
         self.engramGenerate = QtWidgets.QPushButton(self.centralwidget)
         self.engramGenerate.setGeometry(QtCore.QRect(810, 270, 321, 91))
+        self.engramGenerate.clicked.connect(lambda:self.engramGenerateClick())
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(16)
@@ -517,6 +556,15 @@ class Ui_MainWindow(object):
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
 
+    def getRandomLoot(self):
+        for i in self.List_Of_Toggleables:
+            print(i.isChecked())
+
+    def engramGenerateClick(self):
+        print("Engram Generating, please stand by")
+        self.getRandomLoot()
+
+
 
     def onSliderChange(self, slider, label):
         currentTotal = self.legendary_Chances_Slider.value() + self.rare_Chances_slider.value() + self.exotic_Chances_Slider.value()
@@ -528,7 +576,6 @@ class Ui_MainWindow(object):
             self.engramGenerate.setText("Drop an Engram")
 
         label.setText(str(slider.value()) + "%")
-        print(label.text())
 
 if __name__ == "__main__":
     import sys
