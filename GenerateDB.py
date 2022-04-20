@@ -33,9 +33,6 @@ class GenerateDB:
     # Warlock - 2
     # Weapon - 3
 
-    def __init__(self):
-        print("Generating DB. . . ")
-
     def generateDictionaries(self):  # Move the items
         conDefault = sqlite3.connect("Manifest.content")
         cursorDefault = conDefault.cursor()

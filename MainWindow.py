@@ -1,3 +1,4 @@
+import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -12,7 +13,7 @@ from dbOps import dbOps
 
 class Ui_MainWindow(object):
     dpOps = dbOps()
-    generateDB = GenerateDB()
+    destinyDB = dpOps.db.destinyDict
 
     List_Of_Toggleables = []
 
@@ -559,6 +560,14 @@ class Ui_MainWindow(object):
     def getRandomLoot(self):
         for i in self.List_Of_Toggleables:
             print(i.isChecked())
+
+        randomItem = random.choice(list(self.destinyDB.items()))[0]
+        randomItemDict = self.destinyDB.get(randomItem)
+        print("Name: ", randomItem)
+        print("Type: ", randomItemDict['type'])
+        print("Season:", randomItemDict['season'])
+        print("Rarity:", randomItemDict['Rarity'])
+
 
     def engramGenerateClick(self):
         print("Engram Generating, please stand by")
