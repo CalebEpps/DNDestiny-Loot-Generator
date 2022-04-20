@@ -82,7 +82,6 @@ class dbOps:
         if os.path.exists(self.manifestPath) and os.path.exists(self.databasePath):
             print("Start Program")
             self.db.destinyDict = pandas.read_pickle(self.databasePath)
-
             for i in self.db.destinyDict:
                 print(i)
                 print(self.db.destinyDict[i]["season"])

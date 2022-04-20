@@ -7,6 +7,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # For the sliders, allow this:
 # If sliders.values > 100 and < 200, drop 2 engrams out of 200%.
 # If sliders.values > 200 and <= 300, drop 3 engrams out of 300%
+import GeneratedLootUI
 from GenerateDB import GenerateDB
 from dbOps import dbOps
 
@@ -16,6 +17,7 @@ class Ui_MainWindow(object):
     destinyDB = dpOps.db.destinyDict
 
     List_Of_Toggleables = []
+    list_Of_Season_Booleans = []
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
@@ -558,23 +560,39 @@ class Ui_MainWindow(object):
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
 
     def getRandomLoot(self):
+        # Adds the boolean values of the toggleable buttons to a list that can be crosschecked with the seasons.
         for i in self.List_Of_Toggleables:
-            print(i.isChecked())
-
+            self.list_Of_Season_Booleans.append(i.isChecked())
         randomItem = random.choice(list(self.destinyDB.items()))[0]
         randomItemDict = self.destinyDB.get(randomItem)
-        print("Name: ", randomItem)
-        print("Type: ", randomItemDict['type'])
-        print("Season:", randomItemDict['season'])
-        print("Rarity:", randomItemDict['Rarity'])
-
-
+        print(randomItemDict)
+        # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
+        # sure how to fix it right now.
+        if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
+            randomItemDict['season'] = 1
+        # This prints the random roll information to the terminal.
+        if self.list_Of_Season_Booleans[randomItemDict['season'] - 1]:
+            print('------------------------------')
+            print("YOUR RANDOM ROLL IS:")
+            print("Name: ", randomItem)
+            print("Type: ", randomItemDict['type'])
+            print("Season:", randomItemDict['season'])
+            print("Rarity:", randomItemDict['Rarity'])
+            if 'screenshot' in randomItemDict:
+                print("Screenshot: ", randomItemDict['screenshot'])
+            self.list_Of_Season_Booleans.clear()
+        else:
+            # This lets the user know the item is not allowed based on either season, class type, or rarity.
+            print("The item is not allowed in checked seasons...")
+            self.list_Of_Season_Booleans.clear()
+            self.getRandomLoot()
+# Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
         print("Engram Generating, please stand by")
         self.getRandomLoot()
 
 
-
+# The sliders currently change and go up to 100. May be able to remove the if conditions if can link sliders
     def onSliderChange(self, slider, label):
         currentTotal = self.legendary_Chances_Slider.value() + self.rare_Chances_slider.value() + self.exotic_Chances_Slider.value()
         if currentTotal > 100 and currentTotal <= 200:

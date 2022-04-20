@@ -149,4 +149,4 @@ class GenerateDB:
                 return allWatermarks[watermarkIcon]
             else:
                 watermarkFile.close()
-                return "No season Identified"
+                return 1
