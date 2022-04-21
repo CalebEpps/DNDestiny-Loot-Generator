@@ -11,8 +11,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class Ui_Form(object):
-    def setupUi(self, Form, name, type, rarity, screenshot):
+class GeneratedLootUI(object):
+    def setupUi(self, Form):
         Form.setObjectName("Form")
         Form.resize(1156, 346)
         self.horizontalLayoutWidget = QtWidgets.QWidget(Form)
@@ -217,7 +217,7 @@ if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
     Form = QtWidgets.QWidget()
-    ui = Ui_Form()
+    ui = GeneratedLootUI()
     ui.setupUi(Form)
     Form.show()
     sys.exit(app.exec_())

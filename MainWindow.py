@@ -2,8 +2,7 @@ import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-
-#NOTE
+# NOTE
 # For the sliders, allow this:
 # If sliders.values > 100 and < 200, drop 2 engrams out of 200%.
 # If sliders.values > 200 and <= 300, drop 3 engrams out of 300%
@@ -15,14 +14,14 @@ from dbOps import dbOps
 class Ui_MainWindow(object):
     dpOps = dbOps()
     destinyDB = dpOps.db.destinyDict
+    generateDB = GenerateDB()
 
-    List_Of_Toggleables = []
+    list_Of_Toggleables = []
     list_Of_Season_Booleans = []
 
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(1133, 424)
-
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -133,7 +132,8 @@ class Ui_MainWindow(object):
         self.rare_Chances_slider.setMaximum(100)
         self.rare_Chances_slider.setValue(60)
         self.rare_Chance_Label.setText("60%")
-        self.rare_Chances_slider.valueChanged.connect(lambda:self.onSliderChange(self.rare_Chances_slider, self.rare_Percentage_Chance))
+        self.rare_Chances_slider.valueChanged.connect(
+            lambda: self.onSliderChange(self.rare_Chances_slider, self.rare_Percentage_Chance))
 
         self.rare_Vertical_Layout.addWidget(self.rare_Chances_slider)
         self.odds_Layout.addLayout(self.rare_Vertical_Layout)
@@ -165,7 +165,8 @@ class Ui_MainWindow(object):
         self.exotic_Chances_Slider.setMaximum(100)
         self.exotic_Chances_Slider.setValue(5)
         self.exotic_Chance_Label.setText("5%")
-        self.exotic_Chances_Slider.valueChanged.connect(lambda:self.onSliderChange(self.exotic_Chances_Slider, self.exotic_Percentage_Chance))
+        self.exotic_Chances_Slider.valueChanged.connect(
+            lambda: self.onSliderChange(self.exotic_Chances_Slider, self.exotic_Percentage_Chance))
 
         self.exotic_Chances_Vertical_Layout.addWidget(self.exotic_Chances_Slider)
         self.odds_Layout.addLayout(self.exotic_Chances_Vertical_Layout)
@@ -197,7 +198,8 @@ class Ui_MainWindow(object):
         self.legendary_Chances_Slider.setObjectName("legendary_Chances_Slider")
         self.legendary_Chances_Slider.setMaximum(100)
         self.legendary_Chances_Slider.setValue(35)
-        self.legendary_Chances_Slider.valueChanged.connect(lambda:self.onSliderChange(self.legendary_Chances_Slider, self.legendary_Percentage_Chance))
+        self.legendary_Chances_Slider.valueChanged.connect(
+            lambda: self.onSliderChange(self.legendary_Chances_Slider, self.legendary_Percentage_Chance))
         self.legendary_Chances_Vertical_Layout.addWidget(self.legendary_Chances_Slider)
         self.odds_Layout.addLayout(self.legendary_Chances_Vertical_Layout)
 
@@ -210,14 +212,17 @@ class Ui_MainWindow(object):
         self.season_Toggleables_Layout.setObjectName("season_Toggleables_Layout")
         self.seasons_One_To_Eight_Layout = QtWidgets.QVBoxLayout()
         self.seasons_One_To_Eight_Layout.setObjectName("seasons_One_To_Eight_Layout")
+
+        # Put Loops for Toggleables here
         self.red_War_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.red_War_Toggleable)
+        self.list_Of_Toggleables.append(self.red_War_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.red_War_Toggleable.setFont(font)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Red_War_season_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Red_War_season_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.red_War_Toggleable.setIcon(icon3)
         self.red_War_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.red_War_Toggleable.setCheckable(True)
@@ -226,13 +231,14 @@ class Ui_MainWindow(object):
         self.red_War_Toggleable.setObjectName("red_War_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.red_War_Toggleable)
         self.osiris_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.osiris_Toggleable)
+        self.list_Of_Toggleables.append(self.osiris_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.osiris_Toggleable.setFont(font)
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Curse_of_Osiris_season_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Curse_of_Osiris_season_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.osiris_Toggleable.setIcon(icon4)
         self.osiris_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.osiris_Toggleable.setCheckable(True)
@@ -241,13 +247,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.osiris_Toggleable)
 
         self.warmind_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.warmind_Toggleable)
+        self.list_Of_Toggleables.append(self.warmind_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.warmind_Toggleable.setFont(font)
         icon5 = QtGui.QIcon()
-        icon5.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Warmind_season_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon5.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Warmind_season_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.warmind_Toggleable.setIcon(icon5)
         self.warmind_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.warmind_Toggleable.setCheckable(True)
@@ -256,13 +263,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.warmind_Toggleable)
 
         self.outlaw_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.outlaw_Toggleable)
+        self.list_Of_Toggleables.append(self.outlaw_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.outlaw_Toggleable.setFont(font)
         icon6 = QtGui.QIcon()
-        icon6.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Outlaw_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon6.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Outlaw_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.outlaw_Toggleable.setIcon(icon6)
         self.outlaw_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.outlaw_Toggleable.setCheckable(True)
@@ -271,13 +279,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.outlaw_Toggleable)
 
         self.forge_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.forge_Toggleable)
+        self.list_Of_Toggleables.append(self.forge_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.forge_Toggleable.setFont(font)
         icon7 = QtGui.QIcon()
-        icon7.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Forge_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon7.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Forge_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.forge_Toggleable.setIcon(icon7)
         self.forge_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.forge_Toggleable.setCheckable(True)
@@ -286,13 +295,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.forge_Toggleable)
 
         self.drifter_Toggleabel = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.drifter_Toggleabel)
+        self.list_Of_Toggleables.append(self.drifter_Toggleabel)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.drifter_Toggleabel.setFont(font)
         icon8 = QtGui.QIcon()
-        icon8.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Drifter_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon8.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Drifter_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.drifter_Toggleabel.setIcon(icon8)
         self.drifter_Toggleabel.setIconSize(QtCore.QSize(30, 30))
         self.drifter_Toggleabel.setCheckable(True)
@@ -301,13 +311,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.drifter_Toggleabel)
 
         self.opulence_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.opulence_Toggleable)
+        self.list_Of_Toggleables.append(self.opulence_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.opulence_Toggleable.setFont(font)
         icon9 = QtGui.QIcon()
-        icon9.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Opulence_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon9.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Opulence_icon.png"), QtGui.QIcon.Normal,
+                        QtGui.QIcon.Off)
         self.opulence_Toggleable.setIcon(icon9)
         self.opulence_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.opulence_Toggleable.setCheckable(True)
@@ -316,13 +327,14 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.addWidget(self.opulence_Toggleable)
 
         self.undying_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.undying_Toggleable)
+        self.list_Of_Toggleables.append(self.undying_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.undying_Toggleable.setFont(font)
         icon10 = QtGui.QIcon()
-        icon10.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Undying_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon10.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Undying_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.undying_Toggleable.setIcon(icon10)
         self.undying_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.undying_Toggleable.setCheckable(True)
@@ -335,13 +347,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.setObjectName("Seasons_Eight_To_Sixteen_Layout")
 
         self.dawn_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.dawn_Toggleable)
+        self.list_Of_Toggleables.append(self.dawn_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.dawn_Toggleable.setFont(font)
         icon11 = QtGui.QIcon()
-        icon11.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Dawn_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon11.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Dawn_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.dawn_Toggleable.setIcon(icon11)
         self.dawn_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.dawn_Toggleable.setCheckable(True)
@@ -350,13 +363,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.dawn_Toggleable)
 
         self.worthy_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.worthy_Toggleable)
+        self.list_Of_Toggleables.append(self.worthy_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.worthy_Toggleable.setFont(font)
         icon12 = QtGui.QIcon()
-        icon12.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Worthy_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon12.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Worthy_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.worthy_Toggleable.setIcon(icon12)
         self.worthy_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.worthy_Toggleable.setCheckable(True)
@@ -365,13 +379,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.worthy_Toggleable)
 
         self.arrivals_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.arrivals_Toggleable)
+        self.list_Of_Toggleables.append(self.arrivals_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.arrivals_Toggleable.setFont(font)
         icon13 = QtGui.QIcon()
-        icon13.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Arrivals_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon13.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_Arrivals_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.arrivals_Toggleable.setIcon(icon13)
         self.arrivals_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.arrivals_Toggleable.setCheckable(True)
@@ -380,13 +395,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.arrivals_Toggleable)
 
         self.hunt_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.hunt_Toggleable)
+        self.list_Of_Toggleables.append(self.hunt_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.hunt_Toggleable.setFont(font)
         icon14 = QtGui.QIcon()
-        icon14.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Hunt_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon14.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Hunt_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.hunt_Toggleable.setIcon(icon14)
         self.hunt_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.hunt_Toggleable.setCheckable(True)
@@ -395,13 +411,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.hunt_Toggleable)
 
         self.chosen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.chosen_Toggleable)
+        self.list_Of_Toggleables.append(self.chosen_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.chosen_Toggleable.setFont(font)
         icon15 = QtGui.QIcon()
-        icon15.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Chosen_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon15.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Chosen_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.chosen_Toggleable.setIcon(icon15)
         self.chosen_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.chosen_Toggleable.setCheckable(True)
@@ -410,13 +427,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.chosen_Toggleable)
 
         self.splicer_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.splicer_Toggleable)
+        self.list_Of_Toggleables.append(self.splicer_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.splicer_Toggleable.setFont(font)
         icon16 = QtGui.QIcon()
-        icon16.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Splicer_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon16.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Splicer_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.splicer_Toggleable.setIcon(icon16)
         self.splicer_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.splicer_Toggleable.setCheckable(True)
@@ -425,13 +443,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.splicer_Toggleable)
 
         self.lost_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.lost_Toggleable)
+        self.list_Of_Toggleables.append(self.lost_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.lost_Toggleable.setFont(font)
         icon17 = QtGui.QIcon()
-        icon17.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Lost_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon17.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Lost_icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.lost_Toggleable.setIcon(icon17)
         self.lost_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.lost_Toggleable.setCheckable(True)
@@ -440,13 +459,14 @@ class Ui_MainWindow(object):
         self.Seasons_Eight_To_Sixteen_Layout.addWidget(self.lost_Toggleable)
 
         self.risen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
-        self.List_Of_Toggleables.append(self.risen_Toggleable)
+        self.list_Of_Toggleables.append(self.risen_Toggleable)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
         self.risen_Toggleable.setFont(font)
         icon18 = QtGui.QIcon()
-        icon18.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Risen_Icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon18.addPixmap(QtGui.QPixmap("bin/images/icons/30px-Season_of_the_Risen_Icon.png"), QtGui.QIcon.Normal,
+                         QtGui.QIcon.Off)
         self.risen_Toggleable.setIcon(icon18)
         self.risen_Toggleable.setIconSize(QtCore.QSize(30, 30))
         self.risen_Toggleable.setCheckable(True)
@@ -471,31 +491,31 @@ class Ui_MainWindow(object):
         self.type_Label.setAlignment(QtCore.Qt.AlignCenter)
         self.type_Label.setObjectName("type_Label")
         self.class_Type_Vertical_Layout.addWidget(self.type_Label)
-        self.warlock_Type_RB = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
+        self.warlock_RB = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
-        self.warlock_Type_RB.setFont(font)
-        self.warlock_Type_RB.setChecked(True)
-        self.warlock_Type_RB.setObjectName("warlock_Type_RB")
-        self.class_Type_Vertical_Layout.addWidget(self.warlock_Type_RB)
-        self.warlock_Type_RB_2 = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
+        self.warlock_RB.setFont(font)
+        self.warlock_RB.setChecked(True)
+        self.warlock_RB.setObjectName("warlock_Type_RB")
+        self.class_Type_Vertical_Layout.addWidget(self.warlock_RB)
+        self.hunter_RB = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
-        self.warlock_Type_RB_2.setFont(font)
-        self.warlock_Type_RB_2.setObjectName("warlock_Type_RB_2")
-        self.class_Type_Vertical_Layout.addWidget(self.warlock_Type_RB_2)
-        self.warlock_Type_RB_3 = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
+        self.hunter_RB.setFont(font)
+        self.hunter_RB.setObjectName("warlock_Type_RB_2")
+        self.class_Type_Vertical_Layout.addWidget(self.hunter_RB)
+        self.titan_RB = QtWidgets.QRadioButton(self.verticalLayoutWidget_9)
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
-        self.warlock_Type_RB_3.setFont(font)
-        self.warlock_Type_RB_3.setObjectName("warlock_Type_RB_3")
-        self.class_Type_Vertical_Layout.addWidget(self.warlock_Type_RB_3)
+        self.titan_RB.setFont(font)
+        self.titan_RB.setObjectName("warlock_Type_RB_3")
+        self.class_Type_Vertical_Layout.addWidget(self.titan_RB)
         self.engramGenerate = QtWidgets.QPushButton(self.centralwidget)
         self.engramGenerate.setGeometry(QtCore.QRect(810, 270, 321, 91))
-        self.engramGenerate.clicked.connect(lambda:self.engramGenerateClick())
+        self.engramGenerate.clicked.connect(lambda: self.engramGenerateClick())
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(16)
@@ -551,27 +571,63 @@ class Ui_MainWindow(object):
         self.lost_Toggleable.setText(_translate("MainWindow", "Lost"))
         self.risen_Toggleable.setText(_translate("MainWindow", "Risen"))
         self.type_Label.setText(_translate("MainWindow", "Class"))
-        self.warlock_Type_RB.setText(_translate("MainWindow", "Warlock"))
-        self.warlock_Type_RB_2.setText(_translate("MainWindow", "Hunter"))
-        self.warlock_Type_RB_3.setText(_translate("MainWindow", "Titan"))
+        self.warlock_RB.setText(_translate("MainWindow", "Warlock"))
+        self.hunter_RB.setText(_translate("MainWindow", "Hunter"))
+        self.titan_RB.setText(_translate("MainWindow", "Titan"))
         self.engramGenerate.setText(_translate("MainWindow", "Drop an Engram"))
         self.menuLoot_Generator.setTitle(_translate("MainWindow", "Loot Generator"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
 
+    # get the checked class type
+    def getClassType(self, randomItem):
+        classType = 3
+        print("Checking item type...")
+        if randomItem['type'] in self.generateDB.weapon_Types:
+            return classType
+        print("Weapon")
+        if self.warlock_RB.isChecked():
+            print("Warlock")
+            classType = 2
+        elif self.hunter_RB.isChecked():
+            print("Hunter")
+            classType = 1
+        else:
+            print("Titan")
+            classType = 0
+        return classType
+
+    # Method for checking if engram dropped is allowed
+    def getAllowedEngrams(self, randomItem):
+        print("Checking allowed engram type....")
+        list_Of_Allowed_Engrams = []
+        if self.legendary_Engram_Checkbox.isChecked():
+            list_Of_Allowed_Engrams.append("Legendary")
+        if self.exotic_Engram_CheckBox.isChecked():
+            list_Of_Allowed_Engrams.append("Exotic")
+        if self.rare_Engram_Checkbox.isChecked():
+            list_Of_Allowed_Engrams.append("Rare")
+
+        if randomItem['Rarity'] in list_Of_Allowed_Engrams:
+            return True
+        else:
+            return False
+
     def getRandomLoot(self):
         # Adds the boolean values of the toggleable buttons to a list that can be crosschecked with the seasons.
-        for i in self.List_Of_Toggleables:
+        for i in self.list_Of_Toggleables:
             self.list_Of_Season_Booleans.append(i.isChecked())
         randomItem = random.choice(list(self.destinyDB.items()))[0]
         randomItemDict = self.destinyDB.get(randomItem)
-        print(randomItemDict)
+        # print(randomItemDict)
         # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
         # sure how to fix it right now.
         if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
             randomItemDict['season'] = 1
+
         # This prints the random roll information to the terminal.
-        if self.list_Of_Season_Booleans[randomItemDict['season'] - 1]:
+        if self.list_Of_Season_Booleans[randomItemDict['season'] - 1] and self.getAllowedEngrams(
+                randomItemDict) and self.getClassType(randomItemDict) == randomItemDict['classType']:
             print('------------------------------')
             print("YOUR RANDOM ROLL IS:")
             print("Name: ", randomItem)
@@ -585,32 +641,33 @@ class Ui_MainWindow(object):
             # This lets the user know the item is not allowed based on either season, class type, or rarity.
             print("The item is not allowed in checked seasons...")
             self.list_Of_Season_Booleans.clear()
-            self.getRandomLoot()
-# Runs the item generator. May move item to its own class for easy access later.
+            # self.getRandomLoot()
+
+    # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
         print("Engram Generating, please stand by")
         self.getRandomLoot()
 
-
-# The sliders currently change and go up to 100. May be able to remove the if conditions if can link sliders
+    # The sliders currently change and go up to 100. May be able to remove the if conditions if can link sliders
     def onSliderChange(self, slider, label):
         currentTotal = self.legendary_Chances_Slider.value() + self.rare_Chances_slider.value() + self.exotic_Chances_Slider.value()
-        if currentTotal > 100 and currentTotal <= 200:
+        if 100 < currentTotal <= 200:
             self.engramGenerate.setText("Drop 2 Engrams")
-        elif currentTotal > 200 and currentTotal <=300:
+        elif 200 < currentTotal <= 300:
             self.engramGenerate.setText("Drop 3 Engrams")
-        elif currentTotal > 0 and currentTotal <= 100:
+        elif not currentTotal <= 0 and currentTotal <= 100:
             self.engramGenerate.setText("Drop an Engram")
 
         label.setText(str(slider.value()) + "%")
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     app.setApplicationName("DNDestiny Loot Generator")
     appIcon = QtGui.QIcon()
     appIcon.addPixmap(QtGui.QPixmap("bin/images/Token_Engram_Exotic.png"), QtGui.QIcon.Normal,
-                     QtGui.QIcon.Off)
+                      QtGui.QIcon.Off)
     app.setWindowIcon(appIcon)
     app.setApplicationVersion("0.0.1")
     MainWindow = QtWidgets.QMainWindow()
