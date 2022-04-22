@@ -3,10 +3,9 @@ import random
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 # NOTE
-# For the sliders, allow this:
-# If sliders.values > 100 and < 200, drop 2 engrams out of 200%.
-# If sliders.values > 200 and <= 300, drop 3 engrams out of 300%
-import GeneratedLootUI
+# For the sliders:
+# 100% Chance = WEIGHT Not actual percentage
+
 from GenerateDB import GenerateDB
 from dbOps import dbOps
 
@@ -637,6 +636,7 @@ class Ui_MainWindow(object):
             if 'screenshot' in randomItemDict:
                 print("Screenshot: ", randomItemDict['screenshot'])
             self.list_Of_Season_Booleans.clear()
+
         else:
             # This lets the user know the item is not allowed based on either season, class type, or rarity.
             print("The item is not allowed in checked seasons...")
