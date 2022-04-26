@@ -33,16 +33,17 @@ class GeneratedLootUI(object):
         self.item_Screenshot = QtWidgets.QLabel(self.horizontalLayoutWidget)
         self.item_Screenshot.setText("")
 
-        self.url = screenshot
-        response = urllib.request.urlopen(self.url).read()
-        pixmap = QPixmap()
-        pixmap.loadFromData(response)
-        pixmap2 = pixmap.scaledToWidth(256)
-        pixmap3 = pixmap.scaledToHeight(256)
-        self.item_Screenshot.setAlignment(QtCore.Qt.AlignCenter)
-        self.item_Screenshot.setPixmap(QtGui.QPixmap(pixmap3))
-        self.item_Screenshot.setObjectName("item_Screenshot")
-        self.horizontalLayout.addWidget(self.item_Screenshot)
+        if(screenshot != "No Screenshot Available"):
+            self.url = screenshot
+            response = urllib.request.urlopen(self.url).read()
+            pixmap = QPixmap()
+            pixmap.loadFromData(response)
+            pixmap3 = pixmap.scaledToHeight(256)
+            self.item_Screenshot.setAlignment(QtCore.Qt.AlignCenter)
+            self.item_Screenshot.setPixmap(QtGui.QPixmap(pixmap3))
+            self.item_Screenshot.setObjectName("item_Screenshot")
+            self.horizontalLayout.addWidget(self.item_Screenshot)
+
         self.verticalLayoutWidget = QtWidgets.QWidget(Form)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(600, 0, 561, 341))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
@@ -235,7 +236,4 @@ class GeneratedLootUI(object):
             self.armor_Label.setText(_translate("Form", "Armor Type"))
             self.item_Armor_Type_Label.setText(_translate("Form", armorType))
 
-
         self.take_Screenshot_Btn.setText(_translate("Form", "Capture Window"))
-
-

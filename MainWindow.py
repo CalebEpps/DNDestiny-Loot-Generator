@@ -749,20 +749,3 @@ class Ui_MainWindow(object):
             self.engramGenerate.setText("Drop an Engram")
 
         label.setText(str(slider.value()) + "%")
-
-
-if __name__ == "__main__":
-    import sys
-
-    app = QtWidgets.QApplication(sys.argv)
-    app.setApplicationName("DNDestiny Loot Generator")
-    appIcon = QtGui.QIcon()
-    appIcon.addPixmap(QtGui.QPixmap("bin/images/Token_Engram_Exotic.png"), QtGui.QIcon.Normal,
-                      QtGui.QIcon.Off)
-    app.setWindowIcon(appIcon)
-    app.setApplicationVersion("0.0.1")
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
