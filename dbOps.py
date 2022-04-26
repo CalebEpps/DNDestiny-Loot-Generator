@@ -36,6 +36,7 @@ class dbOps:
     manifestPath = "Manifest.content"
     databasePath = "bin/database.dat"
     watermarksPath = "bin/watermark-to-season.json"
+    currentVersion = "104343.22.04.19.2301-1-bnet.44031"
 
     db = GenerateDB()
 
@@ -44,6 +45,7 @@ class dbOps:
         HEADERS = {"x-api-key": "941d92034e1b4563a6eefd80dc6786f8"}
         # get the manifest location from the json
         r = requests.get(manifest_url, headers=HEADERS)
+        print(r.json)
 
         manifest = r.json()
         mani_url = 'http://www.bungie.net' + manifest['Response']['mobileWorldContentPaths']['en']
@@ -79,12 +81,9 @@ class dbOps:
             os.remove("world_sql_content_13b84b23c9f2eb57c71ac6633ffd8c3f.content")
 
     def initializationRun(self):
-        if os.path.exists(self.manifestPath) and os.path.exists(self.databasePath):
+        if os.path.exists(self.databasePath):
             print("Start Program")
             self.db.destinyDict = pandas.read_pickle(self.databasePath)
-            for i in self.db.destinyDict:
-                print(i)
-                print(self.db.destinyDict[i]["season"])
         else:
             print("Files Missing. Reacquiring....")
             if os.path.exists(self.manifestPath):
@@ -92,4 +91,7 @@ class dbOps:
             else:
                 self.get_manifest()
                 self.db.generateDictionaries()
+
+        if os.path.exists(self.manifestPath):
+            os.remove(self.manifestPath)
 

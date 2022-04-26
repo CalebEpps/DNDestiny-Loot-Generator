@@ -1,6 +1,0 @@
-Stasis: 0
-Kinetic: 1
-Arc: 2
-solar: 3
-Void: 4
-

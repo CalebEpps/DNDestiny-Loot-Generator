@@ -1,3 +1,4 @@
+import json
 import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -5,7 +6,9 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # NOTE
 # For the sliders:
 # 100% Chance = WEIGHT Not actual percentage
-
+# Move ALL CUSTOM CODE TO own file
+# That UI File will INHERIT This class.
+import GeneratedLoot
 from GenerateDB import GenerateDB
 from dbOps import dbOps
 
@@ -18,9 +21,70 @@ class Ui_MainWindow(object):
     list_Of_Toggleables = []
     list_Of_Season_Booleans = []
 
+    jsonPerks = None
+
+    def __init__(self):
+        self.centralwidget = None
+        self.verticalLayoutWidget = None
+        self.PossibleEngrams = None
+        self.label = None
+        self.engram_Selectables = None
+        self.rare_Engram_Checkbox = None
+        self.legendary_Engram_Checkbox = None
+        self.exotic_Engram_CheckBox = None
+        self.verticalLayoutWidget_6 = None
+        self.odds_Layout = None
+        self.label_3 = None
+        self.rare_Vertical_Layout = None
+        self.rare_Chances_Horizontal_Layout = None
+        self.rare_Chance_Label = None
+        self.rare_Percentage_Chance = None
+        self.rare_Chances_slider = None
+        self.exotic_Chances_Vertical_Layout = None
+        self.exotic_Horizonatal_Chances_Layout = None
+        self.exotic_Chance_Label = None
+        self.exotic_Percentage_Chance = None
+        self.exotic_Chances_Slider = None
+        self.legendary_Chances_Vertical_Layout = None
+        self.legendary_Horizonatal_Chances_Layout = None
+        self.legendary_Chance_Label = None
+        self.legendary_Percentage_Chance = None
+        self.legendary_Chances_Slider = None
+        self.horizontalLayoutWidget_2 = None
+        self.season_Toggleables_Layout = None
+        self.seasons_One_To_Eight_Layout = None
+        self.red_War_Toggleable = None
+        self.osiris_Toggleable = None
+        self.warmind_Toggleable = None
+        self.outlaw_Toggleable = None
+        self.forge_Toggleable = None
+        self.drifter_Toggleabel = None
+        self.opulence_Toggleable = None
+        self.undying_Toggleable = None
+        self.Seasons_Eight_To_Sixteen_Layout = None
+        self.dawn_Toggleable = None
+        self.worthy_Toggleable = None
+        self.arrivals_Toggleable = None
+        self.hunt_Toggleable = None
+        self.chosen_Toggleable = None
+        self.splicer_Toggleable = None
+        self.lost_Toggleable = None
+        self.risen_Toggleable = None
+        self.verticalLayoutWidget_9 = None
+        self.class_Type_Vertical_Layout = None
+        self.type_Label = None
+        self.warlock_RB = None
+        self.hunter_RB = None
+        self.titan_RB = None
+        self.engramGenerate = None
+        self.randomDropWindow = None
+        # Load JSON File
+        file = open("bin/Weapon Perks.json")
+        self.jsonPerks = json.load(file)
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(1133, 424)
+        MainWindow.resize(1133, 365)
 
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -522,22 +586,6 @@ class Ui_MainWindow(object):
         self.engramGenerate.setObjectName("engramGenerate")
 
         MainWindow.setCentralWidget(self.centralwidget)
-        self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1133, 26))
-        self.menubar.setObjectName("menubar")
-        self.menuLoot_Generator = QtWidgets.QMenu(self.menubar)
-        self.menuLoot_Generator.setObjectName("menuLoot_Generator")
-        self.menuSettings = QtWidgets.QMenu(self.menubar)
-        self.menuSettings.setObjectName("menuSettings")
-        self.menuHelp = QtWidgets.QMenu(self.menubar)
-        self.menuHelp.setObjectName("menuHelp")
-        MainWindow.setMenuBar(self.menubar)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
-        self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
-        self.menubar.addAction(self.menuLoot_Generator.menuAction())
-        self.menubar.addAction(self.menuSettings.menuAction())
-        self.menubar.addAction(self.menuHelp.menuAction())
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -574,9 +622,6 @@ class Ui_MainWindow(object):
         self.hunter_RB.setText(_translate("MainWindow", "Hunter"))
         self.titan_RB.setText(_translate("MainWindow", "Titan"))
         self.engramGenerate.setText(_translate("MainWindow", "Drop an Engram"))
-        self.menuLoot_Generator.setTitle(_translate("MainWindow", "Loot Generator"))
-        self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
-        self.menuHelp.setTitle(_translate("MainWindow", "Help"))
 
     # get the checked class type
     def getClassType(self, randomItem):
@@ -595,6 +640,27 @@ class Ui_MainWindow(object):
             print("Titan")
             classType = 0
         return classType
+
+    def getRandomPerks(self, randomItem):
+        print(randomItem in self.jsonPerks)
+
+        perksSetOne = self.jsonPerks[randomItem]['Slot 1 Perks']
+        perkOne = random.choice(perksSetOne)
+        print(perkOne)
+
+        perksSetTwo = self.jsonPerks[randomItem]['Slot 2 Perks']
+        perkTwo = random.choice(perksSetTwo)
+        print(perkTwo)
+
+        perksSetThree = self.jsonPerks[randomItem]['Slot 3 Perks']
+        perkThree = random.choice(perksSetThree)
+        print(perkThree)
+
+        return [perkOne, perkTwo, perkThree]
+
+    @staticmethod
+    def generateScreenshotUrl(urlEnd):
+        return "https://bungie.net/" + urlEnd
 
     # Method for checking if engram dropped is allowed
     def getAllowedEngrams(self, randomItem):
@@ -624,7 +690,10 @@ class Ui_MainWindow(object):
         if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
             randomItemDict['season'] = 1
 
-        # This prints the random roll information to the terminal.
+        screenshot_Url = "No Screenshot Available"
+        perks = None
+
+        # prints the random roll information to the terminal.
         if self.list_Of_Season_Booleans[randomItemDict['season'] - 1] and self.getAllowedEngrams(
                 randomItemDict) and self.getClassType(randomItemDict) == randomItemDict['classType']:
             print('------------------------------')
@@ -633,15 +702,36 @@ class Ui_MainWindow(object):
             print("Type: ", randomItemDict['type'])
             print("Season:", randomItemDict['season'])
             print("Rarity:", randomItemDict['Rarity'])
+
             if 'screenshot' in randomItemDict:
-                print("Screenshot: ", randomItemDict['screenshot'])
+                # Make Screenshot Link
+                screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
+                print("Screenshot: ", screenshot_Url)
+            else:
+                print(screenshot_Url)
+            # clear list of booleans for next roll
             self.list_Of_Season_Booleans.clear()
+
+            if randomItemDict['classType'] != 3:
+                armorType = randomItemDict['armor tier']
+            else:
+                armorType = "None"
+                perks = self.getRandomPerks(randomItemDict['type'])
+
+            # Create new Dialog Box with Returned Roll and send params to GeneratedLoot.py
+            self.randomDropWindow = QtWidgets.QDialog()
+            lootUI = GeneratedLoot.GeneratedLootUI()
+            lootUI.setupUi(self.randomDropWindow, randomItem, randomItemDict['type'], randomItemDict['season'],
+                           randomItemDict['Rarity'], screenshot_Url, armorType,
+                           perks)
+
+            self.randomDropWindow.show()
 
         else:
             # This lets the user know the item is not allowed based on either season, class type, or rarity.
             print("The item is not allowed in checked seasons...")
             self.list_Of_Season_Booleans.clear()
-            # self.getRandomLoot()
+            self.getRandomLoot()
 
     # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
@@ -659,6 +749,7 @@ class Ui_MainWindow(object):
             self.engramGenerate.setText("Drop an Engram")
 
         label.setText(str(slider.value()) + "%")
+
 
 if __name__ == "__main__":
     import sys

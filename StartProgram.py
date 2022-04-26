@@ -1,0 +1,30 @@
+import sys
+
+from PyQt5 import QtWidgets, QtGui
+
+import GeneratedLoot
+from MainWindow import Ui_MainWindow
+
+
+class StartProgram:
+    randomDropWindow = None
+
+
+    def __init__(self):
+        app = QtWidgets.QApplication(sys.argv)
+        app.setApplicationName("DNDestiny Loot Generator")
+        appIcon = QtGui.QIcon()
+        appIcon.addPixmap(QtGui.QPixmap("bin/images/Token_Engram_Exotic.png"), QtGui.QIcon.Normal,
+                          QtGui.QIcon.Off)
+        app.setWindowIcon(appIcon)
+        app.setApplicationVersion("0.0.1")
+
+        MainWindow = QtWidgets.QMainWindow()
+        MainUI = Ui_MainWindow()
+        MainUI.setupUi(MainWindow)
+        MainWindow.show()
+
+        sys.exit(app.exec_())
+
+
+StartProgram()

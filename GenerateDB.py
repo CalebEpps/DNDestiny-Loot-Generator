@@ -133,11 +133,11 @@ class GenerateDB:
             pickle.dump(self.destinyDict, handle)
             handle.close()
 
-        for key in self.destinyDict:
-            print("The weapon is called " + key + ", it is a  " + self.destinyDict[key][
-                'type'] + " and it is of rarity " +
-                  self.destinyDict[key]['Rarity'] + " with a hashcode of " + str(
-                self.destinyDict[key]['HashCode']) + ".")
+        # for key in self.destinyDict:
+        #     print("The weapon is called " + key + ", it is a  " + self.destinyDict[key][
+        #         'type'] + " and it is of rarity " +
+        #           self.destinyDict[key]['Rarity'] + " with a hashcode of " + str(
+        #         self.destinyDict[key]['HashCode']) + ".")
 
     def getSeason(self, item):
         if 'quality' in item:
