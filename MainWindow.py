@@ -23,6 +23,7 @@ class Ui_MainWindow(object):
     list_Of_Season_Booleans = []
     list_Of_Engram_Weights = [60,35,5]
     current_Engram_Chance_Total = 100
+    list_Of_Engram_Types = ['Rare', 'Legendary', 'Exotic']
 
     jsonPerks = None
 
@@ -649,6 +650,20 @@ class Ui_MainWindow(object):
             classType = 0
         return classType
 
+    # get the checked class type
+    def getClassTypeModified(self):
+        classType = 0
+        if self.warlock_RB.isChecked():
+            print("Warlock")
+            classType = 2
+        elif self.hunter_RB.isChecked():
+            print("Hunter")
+            classType = 1
+        else:
+            print("Titan")
+            classType = 0
+        return classType
+
     def getRandomPerks(self, randomItem):
         print(randomItem in self.jsonPerks)
 
@@ -698,15 +713,14 @@ class Ui_MainWindow(object):
         return list_Of_Allowed_Engrams
 
     # TODO: Use weights to determine the TYPE of engram and then get a random item from that list.
-
     # Creates A sub dictionary of allowed items based  on class restriction
     def createSubDictionaries(self, allowed_Engram_Type, itemDictionary, classType):
         list_Of_Allowed_items = []
-        print(len(self.list_Of_Season_Booleans))
+        print("Length of allowed engrams: ", len(self.list_Of_Season_Booleans))
         for i in itemDictionary:
             if itemDictionary[i]['Rarity'] == allowed_Engram_Type and (itemDictionary[i]['classType'] == classType
                                                                        or itemDictionary[i]['classType'] == 3):
-                print("createSubDictionaries: 2")
+                #print("createSubDictionaries: 2")
                 try:
                     if self.list_Of_Season_Booleans[itemDictionary[i]['season']]:
                         list_Of_Allowed_items.append(i)
@@ -721,18 +735,26 @@ class Ui_MainWindow(object):
             print(i)
 
     def getEngramType(self):
-        pass
-        # Set disallowed engram weights to '0'
-        # Then roll on a list of the engram types
-        # Return type of Engram allowed
+        allowedEngrams = self.getAllowedEngramsList()
+        if 'Rare' not in allowedEngrams:
+            self.list_Of_Engram_Weights[0] = 0
+        elif 'Legendary' not in allowedEngrams:
+            self.list_Of_Engram_Weights[1] = 0
+        elif 'Exotic' not in allowedEngrams:
+            self.list_Of_Engram_Weights[2] = 0
+        return random.choices(self.list_Of_Engram_Types, weights=self.list_Of_Engram_Weights)[0]
 
     def returnRandomLoot(self):
-        pass
+        engramType = self.getEngramType()
+        print(engramType)
+        print("engramType Successful")
+        allowedList = self.createSubDictionaries(engramType, self.destinyDB, self.getClassTypeModified())
+        print("allowedList Successful")
+        print(len(allowedList))
+        return random.choice(allowedList)
 
     def getRandomLoot(self):
-
-        self.testSubDictionary()
-        randomItem = random.choice(list(self.destinyDB.items()))[0]
+        randomItem = self.returnRandomLoot()
         randomItemDict = self.destinyDB.get(randomItem)
         # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
         # sure how to fix it right now.
@@ -741,6 +763,9 @@ class Ui_MainWindow(object):
         # TODO: If Screenshot is not available, then display 'no image available' image.
         screenshot_Url = "No Screenshot Available"
         perks = None
+
+        print(self.getEngramType())
+        self.returnRandomLoot()
 
         # prints the random roll information to the terminal.
         if self.list_Of_Season_Booleans[randomItemDict['season'] - 1] and self.getAllowedEngrams(
