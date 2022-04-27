@@ -150,3 +150,5 @@ class GenerateDB:
             else:
                 watermarkFile.close()
                 return 1
+        else:
+            return 1

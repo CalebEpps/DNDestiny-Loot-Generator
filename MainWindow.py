@@ -3,11 +3,10 @@ import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-# NOTE
-# For the sliders:
-# 100% Chance = WEIGHT Not actual percentage
-# Move ALL CUSTOM CODE TO own file
-# That UI File will INHERIT This class.
+# Percentage will equal weight
+# NOTE: FILE PARTIALLY GENERATED USING QT DESIGNER
+# SEE STARTPROGRAM.PY FOR INITIALIZATION
+
 import GeneratedLoot
 from GenerateDB import GenerateDB
 from dbOps import dbOps
@@ -18,12 +17,17 @@ class Ui_MainWindow(object):
     destinyDB = dpOps.db.destinyDict
     generateDB = GenerateDB()
 
+    # TODO: In order to finish implementing weight system, use random.choices to return an engram type
+    # TODO: If the list is empty, then ignore that value in the weights unless choices weights can ignore things like that
     list_Of_Toggleables = []
     list_Of_Season_Booleans = []
+    list_Of_Engram_Weights = [60,35,5]
+    current_Engram_Chance_Total = 100
 
     jsonPerks = None
 
     def __init__(self):
+
         self.centralwidget = None
         self.verticalLayoutWidget = None
         self.PossibleEngrams = None
@@ -276,7 +280,7 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout = QtWidgets.QVBoxLayout()
         self.seasons_One_To_Eight_Layout.setObjectName("seasons_One_To_Eight_Layout")
 
-        # Put Loops for Toggleables here
+        # TODO: Loop over toggleables, possibly store in .JSON
         self.red_War_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.red_War_Toggleable)
         font = QtGui.QFont()
@@ -585,6 +589,10 @@ class Ui_MainWindow(object):
         self.engramGenerate.setFont(font)
         self.engramGenerate.setObjectName("engramGenerate")
 
+        # Adds the boolean values of the toggleable buttons to a list that can be crosschecked with the seasons.
+        for i in self.list_Of_Toggleables:
+            self.list_Of_Season_Booleans.append(i.isChecked())
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -678,18 +686,59 @@ class Ui_MainWindow(object):
         else:
             return False
 
+    def getAllowedEngramsList(self):
+        print("Checking allowed engram type....")
+        list_Of_Allowed_Engrams = []
+        if self.legendary_Engram_Checkbox.isChecked():
+            list_Of_Allowed_Engrams.append("Legendary")
+        if self.exotic_Engram_CheckBox.isChecked():
+            list_Of_Allowed_Engrams.append("Exotic")
+        if self.rare_Engram_Checkbox.isChecked():
+            list_Of_Allowed_Engrams.append("Rare")
+        return list_Of_Allowed_Engrams
+
+    # TODO: Use weights to determine the TYPE of engram and then get a random item from that list.
+
+    # Creates A sub dictionary of allowed items based  on class restriction
+    def createSubDictionaries(self, allowed_Engram_Type, itemDictionary, classType):
+        list_Of_Allowed_items = []
+        print(len(self.list_Of_Season_Booleans))
+        for i in itemDictionary:
+            if itemDictionary[i]['Rarity'] == allowed_Engram_Type and (itemDictionary[i]['classType'] == classType
+                                                                       or itemDictionary[i]['classType'] == 3):
+                print("createSubDictionaries: 2")
+                try:
+                    if self.list_Of_Season_Booleans[itemDictionary[i]['season']]:
+                        list_Of_Allowed_items.append(i)
+                except:
+                    print("Index our of bounds maybe?")
+
+        return list_Of_Allowed_items
+
+    def testSubDictionary(self):
+        exoticList = self.createSubDictionaries('Exotic', self.destinyDB, 0)
+        for i in exoticList:
+            print(i)
+
+    def getEngramType(self):
+        pass
+        # Set disallowed engram weights to '0'
+        # Then roll on a list of the engram types
+        # Return type of Engram allowed
+
+    def returnRandomLoot(self):
+        pass
+
     def getRandomLoot(self):
-        # Adds the boolean values of the toggleable buttons to a list that can be crosschecked with the seasons.
-        for i in self.list_Of_Toggleables:
-            self.list_Of_Season_Booleans.append(i.isChecked())
+
+        self.testSubDictionary()
         randomItem = random.choice(list(self.destinyDB.items()))[0]
         randomItemDict = self.destinyDB.get(randomItem)
-        # print(randomItemDict)
         # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
         # sure how to fix it right now.
-        if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
-            randomItemDict['season'] = 1
-
+        # if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
+        #     randomItemDict['season'] = 1
+        # TODO: If Screenshot is not available, then display 'no image available' image.
         screenshot_Url = "No Screenshot Available"
         perks = None
 
@@ -710,7 +759,7 @@ class Ui_MainWindow(object):
             else:
                 print(screenshot_Url)
             # clear list of booleans for next roll
-            self.list_Of_Season_Booleans.clear()
+            #self.list_Of_Season_Booleans.clear()
 
             if randomItemDict['classType'] != 3:
                 armorType = randomItemDict['armor tier']
@@ -730,7 +779,7 @@ class Ui_MainWindow(object):
         else:
             # This lets the user know the item is not allowed based on either season, class type, or rarity.
             print("The item is not allowed in checked seasons...")
-            self.list_Of_Season_Booleans.clear()
+            #self.list_Of_Season_Booleans.clear()
             self.getRandomLoot()
 
     # Runs the item generator. May move item to its own class for easy access later.
@@ -738,14 +787,21 @@ class Ui_MainWindow(object):
         print("Engram Generating, please stand by")
         self.getRandomLoot()
 
-    # The sliders currently change and go up to 100. May be able to remove the if conditions if can link sliders
+    # TODO: Change weights of engrams when pulling random choice from sub-dictionary.
+    # TODO: Possibly create  3 separate engram dictionaries and weight them and return one first?
     def onSliderChange(self, slider, label):
-        currentTotal = self.legendary_Chances_Slider.value() + self.rare_Chances_slider.value() + self.exotic_Chances_Slider.value()
-        if 100 < currentTotal <= 200:
-            self.engramGenerate.setText("Drop 2 Engrams")
-        elif 200 < currentTotal <= 300:
-            self.engramGenerate.setText("Drop 3 Engrams")
-        elif not currentTotal <= 0 and currentTotal <= 100:
-            self.engramGenerate.setText("Drop an Engram")
+        if slider.objectName() == "legendary_Chances_Slider":
+            self.list_Of_Engram_Weights[1] = slider.value()
+        elif slider.objectName() == "exotic_Chances_Slider":
+            self.list_Of_Engram_Weights[2] = slider.value()
+        elif slider.objectName() == "rare_Chances_slider":
+            self.list_Of_Engram_Weights[0] = slider.value()
 
         label.setText(str(slider.value()) + "%")
+        self.current_Engram_Chance_Total = self.rare_Chances_slider.value() + self.legendary_Chances_Slider.value() \
+                                           + self.exotic_Chances_Slider.value()
+        print(self.list_Of_Engram_Weights)
+        print(self.current_Engram_Chance_Total)
+
+    def onSeasonUnchecked(self):
+        pass
