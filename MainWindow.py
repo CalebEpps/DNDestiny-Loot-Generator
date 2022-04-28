@@ -735,7 +735,7 @@ class Ui_MainWindow(object):
     # Creates A sub dictionary of allowed items based  on class restriction
     def createSubDictionaries(self, allowed_Engram_Type, itemDictionary, classType):
         list_Of_Allowed_items = []
-        print("Length of allowed engrams: ", len(self.list_Of_Season_Booleans))
+        print("Length of allowed booleans: ", len(self.list_Of_Season_Booleans))
         for i in itemDictionary:
             if itemDictionary[i]['Rarity'] == allowed_Engram_Type and (itemDictionary[i]['classType'] == classType
                                                                        or itemDictionary[i]['classType'] == 3):
@@ -770,6 +770,9 @@ class Ui_MainWindow(object):
         allowedList = self.createSubDictionaries(engramType, self.destinyDB, self.getClassTypeModified())
         print("allowedList Successful")
         print(len(allowedList))
+
+        for i in allowedList:
+            print(i)
         return random.choice(allowedList)
 
     def getRandomLoot(self):
@@ -783,45 +786,35 @@ class Ui_MainWindow(object):
         screenshot_Url = "No Screenshot Available"
         perks = None
 
-        print(self.getEngramType())
-        self.returnRandomLoot()
-
         # prints the random roll information to the terminal.
-        if self.list_Of_Season_Booleans[randomItemDict['season'] - 1] and self.getAllowedEngrams(
-                randomItemDict) and self.getClassType(randomItemDict) == randomItemDict['classType']:
-            print('------------------------------')
-            print("YOUR RANDOM ROLL IS:")
-            print("Name: ", randomItem)
-            print("Type: ", randomItemDict['type'])
-            print("Season:", randomItemDict['season'])
-            print("Rarity:", randomItemDict['Rarity'])
+        print('------------------------------')
+        print("YOUR RANDOM ROLL IS:")
+        print("Name: ", randomItem)
+        print("Type: ", randomItemDict['type'])
+        print("Season:", randomItemDict['season'])
+        print("Rarity:", randomItemDict['Rarity'])
 
-            if 'screenshot' in randomItemDict:
-                # Make Screenshot Link
-                screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
-                print("Screenshot: ", screenshot_Url)
-            else:
-                print(screenshot_Url)
-            # clear list of booleans for next roll
-            # self.list_Of_Season_Booleans.clear()
-
-            if randomItemDict['classType'] != 3:
-                armorType = randomItemDict['armor tier']
-            else:
-                armorType = "None"
-                perks = self.getRandomPerks(randomItemDict['type'])
-
-            # Create new Dialog Box with Returned Roll and send params to GeneratedLoot.py
-            self.randomDropWindow = QtWidgets.QDialog()
-            lootUI = GeneratedLoot.GeneratedLootUI()
-            lootUI.setupUi(self.randomDropWindow, randomItem, randomItemDict['type'], randomItemDict['season'],
-                           randomItemDict['Rarity'], screenshot_Url, armorType,
-                           perks)
-
-            self.randomDropWindow.show()
-
+        if 'screenshot' in randomItemDict:
+            # Make Screenshot Link
+            screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
+            print("Screenshot: ", screenshot_Url)
         else:
-            pass
+            print(screenshot_Url)
+
+        if randomItemDict['classType'] != 3:
+            armorType = randomItemDict['armor tier']
+        else:
+            armorType = "None"
+            perks = self.getRandomPerks(randomItemDict['type'])
+
+        # Create new Dialog Box with Returned Roll and send params to GeneratedLoot.py
+        self.randomDropWindow = QtWidgets.QDialog()
+        lootUI = GeneratedLoot.GeneratedLootUI()
+        lootUI.setupUi(self.randomDropWindow, randomItem, randomItemDict['type'], randomItemDict['season'],
+                        randomItemDict['Rarity'], screenshot_Url, armorType,
+                        perks)
+
+        self.randomDropWindow.show()
 
     # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
@@ -838,6 +831,7 @@ class Ui_MainWindow(object):
             self.list_Of_Engram_Weights[2] = slider.value()
         elif slider.objectName() == "rare_Chances_slider":
             self.list_Of_Engram_Weights[0] = slider.value()
+        print(self.list_Of_Engram_Weights)
 
         label.setText(str(slider.value()) + "%")
         self.current_Engram_Chance_Total = self.rare_Chances_slider.value() + self.legendary_Chances_Slider.value() \
@@ -845,9 +839,13 @@ class Ui_MainWindow(object):
 
     def onSeasonUnchecked(self, button):
         if button.objectName() == "red_War_Toggleable":
-            self.list_Of_Season_Booleans[0] = not self.list_Of_Season_Booleans[0]
+            print("Red War Toggleable: ", self.list_Of_Season_Booleans[0])
+            self.list_Of_Season_Booleans[0] = (not self.list_Of_Season_Booleans[0])
+            print("Red War Toggleable: ", self.list_Of_Season_Booleans[0])
         elif button.objectName() == "osiris_Toggleable":
+            print("Osiris Toggleable: ", self.list_Of_Season_Booleans[1])
             self.list_Of_Season_Booleans[1] = not self.list_Of_Season_Booleans[1]
+            print("Osiris Toggleable: ", self.list_Of_Season_Booleans[1])
         elif button.objectName() == "warmind_Toggleable":
             self.list_Of_Season_Booleans[2] = not self.list_Of_Season_Booleans[2]
         elif button.objectName() == "outlaw_Toggleable":
@@ -874,5 +872,7 @@ class Ui_MainWindow(object):
             self.list_Of_Season_Booleans[13] = not self.list_Of_Season_Booleans[13]
         elif button.objectName() == "lost_Toggleable":
             self.list_Of_Season_Booleans[14] = not self.list_Of_Season_Booleans[14]
-        elif button.objectName() == "risen_Toggleable ":
+        elif button.objectName() == "risen_Toggleable":
+            print("Risen Toggleable: ", self.list_Of_Season_Booleans[15])
             self.list_Of_Season_Booleans[15] = not self.list_Of_Season_Booleans[15]
+            print("Risen Toggleable: ", self.list_Of_Season_Booleans[15])
