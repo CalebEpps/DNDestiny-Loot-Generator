@@ -8,6 +8,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # SEE STARTPROGRAM.PY FOR INITIALIZATION
 
 import GeneratedLoot
+import NoAvailableLoot
 from GenerateDB import GenerateDB
 from dbOps import dbOps
 
@@ -83,6 +84,7 @@ class Ui_MainWindow(object):
         self.titan_RB = None
         self.engramGenerate = None
         self.randomDropWindow = None
+        self.noAvailableLootWindow = None
         # Load JSON File
         file = open("bin/Weapon Perks.json")
         self.jsonPerks = json.load(file)
@@ -704,7 +706,8 @@ class Ui_MainWindow(object):
     def generateScreenshotUrl(urlEnd):
         return "https://bungie.net/" + urlEnd
 
-    # Method for checking if engram dropped is allowed
+    #TODO: When you uncheck engrams and recheck them + mess with sliders, things get messy.
+    #TODO: Add method and possibly list to check if certain egnrams are selected. This will solve the issue.
     def getAllowedEngrams(self, randomItem):
         print("Checking allowed engram type....")
         list_Of_Allowed_Engrams = []
@@ -761,7 +764,11 @@ class Ui_MainWindow(object):
             self.list_Of_Engram_Weights[1] = 0
         elif 'Exotic' not in allowedEngrams:
             self.list_Of_Engram_Weights[2] = 0
-        return random.choices(self.list_Of_Engram_Types, weights=self.list_Of_Engram_Weights)[0]
+
+        try:
+            return random.choices(self.list_Of_Engram_Types, weights=self.list_Of_Engram_Weights)[0]
+        except:
+            self.openPopUpNoAvailableRolls()
 
     def returnRandomLoot(self):
         engramType = self.getEngramType()
@@ -771,12 +778,17 @@ class Ui_MainWindow(object):
         print("allowedList Successful")
         print(len(allowedList))
 
-        for i in allowedList:
-            print(i)
-        return random.choice(allowedList)
+        try:
+            itemToReturn = random.choice(allowedList)
+            return itemToReturn
+        except:
+            self.openPopUpNoAvailableRolls()
+            return None
 
     def getRandomLoot(self):
         randomItem = self.returnRandomLoot()
+        if randomItem is None:
+            return
         randomItemDict = self.destinyDB.get(randomItem)
         # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
         # sure how to fix it right now.
@@ -811,8 +823,8 @@ class Ui_MainWindow(object):
         self.randomDropWindow = QtWidgets.QDialog()
         lootUI = GeneratedLoot.GeneratedLootUI()
         lootUI.setupUi(self.randomDropWindow, randomItem, randomItemDict['type'], randomItemDict['season'],
-                        randomItemDict['Rarity'], screenshot_Url, armorType,
-                        perks)
+                       randomItemDict['Rarity'], screenshot_Url, armorType,
+                       perks)
 
         self.randomDropWindow.show()
 
@@ -822,7 +834,10 @@ class Ui_MainWindow(object):
         self.getRandomLoot()
 
     def openPopUpNoAvailableRolls(self):
-        pass
+        self.noAvailableLootWindow = QtWidgets.QDialog()
+        noLootUI = NoAvailableLoot.Ui_Dialog()
+        noLootUI.setupUi(self.noAvailableLootWindow)
+        self.noAvailableLootWindow.show()
 
     def onSliderChange(self, slider, label):
         if slider.objectName() == "legendary_Chances_Slider":
@@ -836,6 +851,13 @@ class Ui_MainWindow(object):
         label.setText(str(slider.value()) + "%")
         self.current_Engram_Chance_Total = self.rare_Chances_slider.value() + self.legendary_Chances_Slider.value() \
                                            + self.exotic_Chances_Slider.value()
+        allowedEngrams = self.getAllowedEngramsList()
+        if 'Rare' not in allowedEngrams:
+            self.list_Of_Engram_Weights[0] = 0
+        elif 'Legendary' not in allowedEngrams:
+            self.list_Of_Engram_Weights[1] = 0
+        elif 'Exotic' not in allowedEngrams:
+            self.list_Of_Engram_Weights[2] = 0
 
     def onSeasonUnchecked(self, button):
         if button.objectName() == "red_War_Toggleable":
