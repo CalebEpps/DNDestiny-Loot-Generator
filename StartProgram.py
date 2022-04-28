@@ -17,7 +17,9 @@ class StartProgram:
                           QtGui.QIcon.Off)
         app.setWindowIcon(appIcon)
         app.setApplicationVersion("0.0.1")
-
+        stylesheet = "bin/ButtonsStyle.css"
+        with open(stylesheet, "r") as fh:
+            app.setStyleSheet(fh.read())
         MainWindow = QtWidgets.QMainWindow()
         MainUI = Ui_MainWindow()
         MainUI.setupUi(MainWindow)

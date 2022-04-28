@@ -1,0 +1,12 @@
+QPushButton:checked {
+    color:green;
+}
+
+QPushButton {
+      color:red;
+      background-color: white;
+  }
+
+QPushButton#engramGenerate {
+    color: black;
+}

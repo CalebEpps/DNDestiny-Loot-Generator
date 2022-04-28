@@ -287,7 +287,6 @@ class Ui_MainWindow(object):
         self.list_Of_Toggleables.append(self.red_War_Toggleable)
         self.red_War_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.red_War_Toggleable))
         # Stylesheet needed for each toggleable button. (REALLY need loops)
-        #self.red_War_Toggleable.setStyleSheet("QPushButton#red_War_Toggleable:checked {color:green} QPushButton#red_War_Toggleable {color:red} ")
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -822,10 +821,7 @@ class Ui_MainWindow(object):
             self.randomDropWindow.show()
 
         else:
-            # This lets the user know the item is not allowed based on either season, class type, or rarity.
-            print("The item is not allowed in checked seasons...")
-            # self.list_Of_Season_Booleans.clear()
-            self.getRandomLoot()
+            pass
 
     # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
@@ -846,8 +842,6 @@ class Ui_MainWindow(object):
         label.setText(str(slider.value()) + "%")
         self.current_Engram_Chance_Total = self.rare_Chances_slider.value() + self.legendary_Chances_Slider.value() \
                                            + self.exotic_Chances_Slider.value()
-        print(self.list_Of_Engram_Weights)
-        print(self.current_Engram_Chance_Total)
 
     def onSeasonUnchecked(self, button):
         if button.objectName() == "red_War_Toggleable":
