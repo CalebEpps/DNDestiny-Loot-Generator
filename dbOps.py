@@ -1,12 +1,9 @@
 import os
 import zipfile
-from threading import Thread
 
-import PyQt5.QtWidgets
 # Handle UI / Initialization
 import pandas
 import requests
-from PyQt5.QtCore import Qt
 from tqdm import tqdm
 
 from GenerateDB import GenerateDB
@@ -45,9 +42,10 @@ class dbOps:
         HEADERS = {"x-api-key": "941d92034e1b4563a6eefd80dc6786f8"}
         # get the manifest location from the json
         r = requests.get(manifest_url, headers=HEADERS)
-        print(r.json)
+        print("\nGrabbing ", manifest_url)
 
         manifest = r.json()
+        print("\nGot it!")
         mani_url = 'http://www.bungie.net' + manifest['Response']['mobileWorldContentPaths']['en']
         r = requests.get(mani_url, stream=True)
 
@@ -57,6 +55,8 @@ class dbOps:
             print(manifest_Size)
             block_Size = 1024
             progress_bar = tqdm(total=manifest_Size, unit='iB', unit_scale=True)
+            print("\nHang tight while I grab the Destiny Database for you...")
+            print("The program will launch when I'm done!")
             for data in r.iter_content(block_Size):
                 progress_bar.update(len(data))
                 self.dlProgress += len(data)
@@ -64,7 +64,7 @@ class dbOps:
             progress_bar.close()
         if manifest_Size != 0 and progress_bar.n != manifest_Size:
             print("ERROR, something went wrong")
-        print("Download Complete!")
+        print("\nDownload Complete! Launching program now..")
 
         # Extract the file contents, and rename the extracted file
         # to 'Manifest.content'
@@ -82,10 +82,10 @@ class dbOps:
 
     def initializationRun(self):
         if os.path.exists(self.databasePath):
-            print("Start Program")
+            print("Program Has Started!")
             self.db.destinyDict = pandas.read_pickle(self.databasePath)
         else:
-            print("Files Missing. Reacquiring....")
+            print("Files Missing. One moment....")
             if os.path.exists(self.manifestPath):
                 self.db.generateDictionaries()
             else:

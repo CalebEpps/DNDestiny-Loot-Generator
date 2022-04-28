@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
     # TODO: If the list is empty, then ignore that value in the weights unless choices weights can ignore things like that
     list_Of_Toggleables = []
     list_Of_Season_Booleans = []
-    list_Of_Engram_Weights = [60,35,5]
+    list_Of_Engram_Weights = [60, 35, 5]
     current_Engram_Chance_Total = 100
     list_Of_Engram_Types = ['Rare', 'Legendary', 'Exotic']
 
@@ -282,8 +282,12 @@ class Ui_MainWindow(object):
         self.seasons_One_To_Eight_Layout.setObjectName("seasons_One_To_Eight_Layout")
 
         # TODO: Loop over toggleables, possibly store in .JSON
+        # TODO: Add CSS styling to ALL buttons, green when checked, red when unchecked.
         self.red_War_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.red_War_Toggleable)
+        self.red_War_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.red_War_Toggleable))
+        # Stylesheet needed for each toggleable button. (REALLY need loops)
+        #self.red_War_Toggleable.setStyleSheet("QPushButton#red_War_Toggleable:checked {color:green} QPushButton#red_War_Toggleable {color:red} ")
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -298,8 +302,10 @@ class Ui_MainWindow(object):
         self.red_War_Toggleable.setChecked(True)
         self.red_War_Toggleable.setObjectName("red_War_Toggleable")
         self.seasons_One_To_Eight_Layout.addWidget(self.red_War_Toggleable)
+
         self.osiris_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.osiris_Toggleable)
+        self.osiris_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.osiris_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -316,6 +322,7 @@ class Ui_MainWindow(object):
 
         self.warmind_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.warmind_Toggleable)
+        self.warmind_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.warmind_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -332,6 +339,7 @@ class Ui_MainWindow(object):
 
         self.outlaw_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.outlaw_Toggleable)
+        self.outlaw_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.outlaw_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -348,6 +356,7 @@ class Ui_MainWindow(object):
 
         self.forge_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.forge_Toggleable)
+        self.forge_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.forge_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -364,6 +373,7 @@ class Ui_MainWindow(object):
 
         self.drifter_Toggleabel = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.drifter_Toggleabel)
+        self.drifter_Toggleabel.clicked.connect(lambda: self.onSeasonUnchecked(self.drifter_Toggleabel))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -380,6 +390,7 @@ class Ui_MainWindow(object):
 
         self.opulence_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.opulence_Toggleable)
+        self.opulence_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.opulence_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -396,6 +407,7 @@ class Ui_MainWindow(object):
 
         self.undying_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.undying_Toggleable)
+        self.undying_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.undying_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -416,6 +428,7 @@ class Ui_MainWindow(object):
 
         self.dawn_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.dawn_Toggleable)
+        self.dawn_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.dawn_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -432,6 +445,7 @@ class Ui_MainWindow(object):
 
         self.worthy_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.worthy_Toggleable)
+        self.worthy_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.worthy_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -448,6 +462,7 @@ class Ui_MainWindow(object):
 
         self.arrivals_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.arrivals_Toggleable)
+        self.arrivals_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.arrivals_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -464,6 +479,7 @@ class Ui_MainWindow(object):
 
         self.hunt_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.hunt_Toggleable)
+        self.hunt_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.hunt_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -480,6 +496,7 @@ class Ui_MainWindow(object):
 
         self.chosen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.chosen_Toggleable)
+        self.chosen_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.chosen_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -496,6 +513,7 @@ class Ui_MainWindow(object):
 
         self.splicer_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.splicer_Toggleable)
+        self.splicer_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.splicer_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -512,6 +530,7 @@ class Ui_MainWindow(object):
 
         self.lost_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.lost_Toggleable)
+        self.lost_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.lost_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -528,6 +547,7 @@ class Ui_MainWindow(object):
 
         self.risen_Toggleable = QtWidgets.QPushButton(self.horizontalLayoutWidget_2)
         self.list_Of_Toggleables.append(self.risen_Toggleable)
+        self.risen_Toggleable.clicked.connect(lambda: self.onSeasonUnchecked(self.risen_Toggleable))
         font = QtGui.QFont()
         font.setFamily("Segoe UI Light")
         font.setPointSize(12)
@@ -720,11 +740,11 @@ class Ui_MainWindow(object):
         for i in itemDictionary:
             if itemDictionary[i]['Rarity'] == allowed_Engram_Type and (itemDictionary[i]['classType'] == classType
                                                                        or itemDictionary[i]['classType'] == 3):
-                #print("createSubDictionaries: 2")
+                # print("createSubDictionaries: 2")
                 try:
-                    if self.list_Of_Season_Booleans[itemDictionary[i]['season']]:
+                    if self.list_Of_Season_Booleans[itemDictionary[i]['season'] - 1]:
                         list_Of_Allowed_items.append(i)
-                except:
+                except IndexError:
                     print("Index our of bounds maybe?")
 
         return list_Of_Allowed_items
@@ -784,7 +804,7 @@ class Ui_MainWindow(object):
             else:
                 print(screenshot_Url)
             # clear list of booleans for next roll
-            #self.list_Of_Season_Booleans.clear()
+            # self.list_Of_Season_Booleans.clear()
 
             if randomItemDict['classType'] != 3:
                 armorType = randomItemDict['armor tier']
@@ -804,7 +824,7 @@ class Ui_MainWindow(object):
         else:
             # This lets the user know the item is not allowed based on either season, class type, or rarity.
             print("The item is not allowed in checked seasons...")
-            #self.list_Of_Season_Booleans.clear()
+            # self.list_Of_Season_Booleans.clear()
             self.getRandomLoot()
 
     # Runs the item generator. May move item to its own class for easy access later.
@@ -812,8 +832,9 @@ class Ui_MainWindow(object):
         print("Engram Generating, please stand by")
         self.getRandomLoot()
 
-    # TODO: Change weights of engrams when pulling random choice from sub-dictionary.
-    # TODO: Possibly create  3 separate engram dictionaries and weight them and return one first?
+    def openPopUpNoAvailableRolls(self):
+        pass
+
     def onSliderChange(self, slider, label):
         if slider.objectName() == "legendary_Chances_Slider":
             self.list_Of_Engram_Weights[1] = slider.value()
@@ -828,5 +849,36 @@ class Ui_MainWindow(object):
         print(self.list_Of_Engram_Weights)
         print(self.current_Engram_Chance_Total)
 
-    def onSeasonUnchecked(self):
-        pass
+    def onSeasonUnchecked(self, button):
+        if button.objectName() == "red_War_Toggleable":
+            self.list_Of_Season_Booleans[0] = not self.list_Of_Season_Booleans[0]
+        elif button.objectName() == "osiris_Toggleable":
+            self.list_Of_Season_Booleans[1] = not self.list_Of_Season_Booleans[1]
+        elif button.objectName() == "warmind_Toggleable":
+            self.list_Of_Season_Booleans[2] = not self.list_Of_Season_Booleans[2]
+        elif button.objectName() == "outlaw_Toggleable":
+            self.list_Of_Season_Booleans[3] = not self.list_Of_Season_Booleans[3]
+        elif button.objectName() == "forge_Toggleable":
+            self.list_Of_Season_Booleans[4] = not self.list_Of_Season_Booleans[4]
+        elif button.objectName() == "drifter_Toggleabel":
+            self.list_Of_Season_Booleans[5] = not self.list_Of_Season_Booleans[5]
+        elif button.objectName() == "opulence_Toggleable":
+            self.list_Of_Season_Booleans[6] = not self.list_Of_Season_Booleans[6]
+        elif button.objectName() == "undying_Toggleable":
+            self.list_Of_Season_Booleans[7] = not self.list_Of_Season_Booleans[7]
+        elif button.objectName() == "dawn_Toggleable":
+            self.list_Of_Season_Booleans[8] = not self.list_Of_Season_Booleans[8]
+        elif button.objectName() == "worthy_Toggleable":
+            self.list_Of_Season_Booleans[9] = not self.list_Of_Season_Booleans[9]
+        elif button.objectName() == "arrivals_Toggleable":
+            self.list_Of_Season_Booleans[10] = not self.list_Of_Season_Booleans[10]
+        elif button.objectName() == "hunt_Toggleable":
+            self.list_Of_Season_Booleans[11] = not self.list_Of_Season_Booleans[11]
+        elif button.objectName() == "chosen_Toggleable":
+            self.list_Of_Season_Booleans[12] = not self.list_Of_Season_Booleans[12]
+        elif button.objectName() == "splicer_Toggleable":
+            self.list_Of_Season_Booleans[13] = not self.list_Of_Season_Booleans[13]
+        elif button.objectName() == "lost_Toggleable":
+            self.list_Of_Season_Booleans[14] = not self.list_Of_Season_Booleans[14]
+        elif button.objectName() == "risen_Toggleable ":
+            self.list_Of_Season_Booleans[15] = not self.list_Of_Season_Booleans[15]
