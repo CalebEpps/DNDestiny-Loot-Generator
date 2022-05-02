@@ -3,7 +3,6 @@ import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-# Percentage will equal weight
 # NOTE: FILE PARTIALLY GENERATED USING QT DESIGNER
 # SEE STARTPROGRAM.PY FOR INITIALIZATION
 
@@ -654,26 +653,7 @@ class Ui_MainWindow(object):
         self.engramGenerate.setText(_translate("MainWindow", "Drop an Engram"))
 
     # get the checked class type
-    def getClassType(self, randomItem):
-        classType = 3
-        print("Checking item type...")
-        if randomItem['type'] in self.generateDB.weapon_Types:
-            return classType
-        print("Weapon")
-        if self.warlock_RB.isChecked():
-            print("Warlock")
-            classType = 2
-        elif self.hunter_RB.isChecked():
-            print("Hunter")
-            classType = 1
-        else:
-            print("Titan")
-            classType = 0
-        return classType
-
-    # get the checked class type
-    def getClassTypeModified(self):
-        classType = 0
+    def getClassType(self):
         if self.warlock_RB.isChecked():
             print("Warlock")
             classType = 2
@@ -690,15 +670,15 @@ class Ui_MainWindow(object):
 
         perksSetOne = self.jsonPerks[randomItem]['Slot 1 Perks']
         perkOne = random.choice(perksSetOne)
-        print(perkOne)
+        print("Perk 1: ", perkOne)
 
         perksSetTwo = self.jsonPerks[randomItem]['Slot 2 Perks']
         perkTwo = random.choice(perksSetTwo)
-        print(perkTwo)
+        print("Perk 2: ", perkTwo)
 
         perksSetThree = self.jsonPerks[randomItem]['Slot 3 Perks']
         perkThree = random.choice(perksSetThree)
-        print(perkThree)
+        print("Perk 3: ", perkThree)
 
         return [perkOne, perkTwo, perkThree]
 
@@ -706,43 +686,12 @@ class Ui_MainWindow(object):
     def generateScreenshotUrl(urlEnd):
         return "https://bungie.net/" + urlEnd
 
-    #TODO: When you uncheck engrams and recheck them + mess with sliders, things get messy.
-    #TODO: Add method and possibly list to check if certain egnrams are selected. This will solve the issue.
-    def getAllowedEngrams(self, randomItem):
-        print("Checking allowed engram type....")
-        list_Of_Allowed_Engrams = []
-        if self.legendary_Engram_Checkbox.isChecked():
-            list_Of_Allowed_Engrams.append("Legendary")
-        if self.exotic_Engram_CheckBox.isChecked():
-            list_Of_Allowed_Engrams.append("Exotic")
-        if self.rare_Engram_Checkbox.isChecked():
-            list_Of_Allowed_Engrams.append("Rare")
-
-        if randomItem['Rarity'] in list_Of_Allowed_Engrams:
-            return True
-        else:
-            return False
-
-    def getAllowedEngramsList(self):
-        print("Checking allowed engram type....")
-        list_Of_Allowed_Engrams = []
-        if self.legendary_Engram_Checkbox.isChecked():
-            list_Of_Allowed_Engrams.append("Legendary")
-        if self.exotic_Engram_CheckBox.isChecked():
-            list_Of_Allowed_Engrams.append("Exotic")
-        if self.rare_Engram_Checkbox.isChecked():
-            list_Of_Allowed_Engrams.append("Rare")
-        return list_Of_Allowed_Engrams
-
-    # TODO: Use weights to determine the TYPE of engram and then get a random item from that list.
-    # Creates A sub dictionary of allowed items based  on class restriction
+    # Creates A sub dictionary of allowed items based on class, season, and engram type restrictions
     def createSubDictionaries(self, allowed_Engram_Type, itemDictionary, classType):
         list_Of_Allowed_items = []
-        print("Length of allowed booleans: ", len(self.list_Of_Season_Booleans))
         for i in itemDictionary:
             if itemDictionary[i]['Rarity'] == allowed_Engram_Type and (itemDictionary[i]['classType'] == classType
                                                                        or itemDictionary[i]['classType'] == 3):
-                # print("createSubDictionaries: 2")
                 try:
                     if self.list_Of_Season_Booleans[itemDictionary[i]['season'] - 1]:
                         list_Of_Allowed_items.append(i)
@@ -751,41 +700,41 @@ class Ui_MainWindow(object):
 
         return list_Of_Allowed_items
 
-    def testSubDictionary(self):
-        exoticList = self.createSubDictionaries('Exotic', self.destinyDB, 0)
-        for i in exoticList:
-            print(i)
+    def setAllowedEngrams(self):
+        # Three conditions to Check
+        if not self.rare_Engram_Checkbox.isChecked():
+            self.list_Of_Engram_Weights[0] = 0
+        else:
+            self.list_Of_Engram_Weights[0] = self.rare_Chances_slider.value()
+
+        if not self.legendary_Engram_Checkbox.isChecked():
+            self.list_Of_Engram_Weights[1] = 0
+        else:
+            self.list_Of_Engram_Weights[1] = self.legendary_Chances_Slider.value()
+
+        if not self.exotic_Engram_CheckBox.isChecked():
+            self.list_Of_Engram_Weights[2] = 0
+        else:
+            self.list_Of_Engram_Weights[2] = self.exotic_Chances_Slider.value()
 
     def getEngramType(self):
-        allowedEngrams = self.getAllowedEngramsList()
-        if 'Rare' not in allowedEngrams:
-            self.list_Of_Engram_Weights[0] = 0
-        elif 'Legendary' not in allowedEngrams:
-            self.list_Of_Engram_Weights[1] = 0
-        elif 'Exotic' not in allowedEngrams:
-            self.list_Of_Engram_Weights[2] = 0
-
         try:
             return random.choices(self.list_Of_Engram_Types, weights=self.list_Of_Engram_Weights)[0]
-        except:
+        except ValueError:
             self.openPopUpNoAvailableRolls()
 
     def returnRandomLoot(self):
         engramType = self.getEngramType()
-        print(engramType)
-        print("engramType Successful")
-        allowedList = self.createSubDictionaries(engramType, self.destinyDB, self.getClassTypeModified())
-        print("allowedList Successful")
-        print(len(allowedList))
+        allowedList = self.createSubDictionaries(engramType, self.destinyDB, self.getClassType())
 
         try:
             itemToReturn = random.choice(allowedList)
             return itemToReturn
-        except:
+        except IndexError:
             self.openPopUpNoAvailableRolls()
             return None
 
-    def getRandomLoot(self):
+    def displayRandomLoot(self):
         randomItem = self.returnRandomLoot()
         if randomItem is None:
             return
@@ -830,8 +779,8 @@ class Ui_MainWindow(object):
 
     # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
-        print("Engram Generating, please stand by")
-        self.getRandomLoot()
+        self.setAllowedEngrams()
+        self.displayRandomLoot()
 
     def openPopUpNoAvailableRolls(self):
         self.noAvailableLootWindow = QtWidgets.QDialog()
@@ -846,28 +795,16 @@ class Ui_MainWindow(object):
             self.list_Of_Engram_Weights[2] = slider.value()
         elif slider.objectName() == "rare_Chances_slider":
             self.list_Of_Engram_Weights[0] = slider.value()
-        print(self.list_Of_Engram_Weights)
 
         label.setText(str(slider.value()) + "%")
         self.current_Engram_Chance_Total = self.rare_Chances_slider.value() + self.legendary_Chances_Slider.value() \
                                            + self.exotic_Chances_Slider.value()
-        allowedEngrams = self.getAllowedEngramsList()
-        if 'Rare' not in allowedEngrams:
-            self.list_Of_Engram_Weights[0] = 0
-        elif 'Legendary' not in allowedEngrams:
-            self.list_Of_Engram_Weights[1] = 0
-        elif 'Exotic' not in allowedEngrams:
-            self.list_Of_Engram_Weights[2] = 0
 
     def onSeasonUnchecked(self, button):
         if button.objectName() == "red_War_Toggleable":
-            print("Red War Toggleable: ", self.list_Of_Season_Booleans[0])
             self.list_Of_Season_Booleans[0] = (not self.list_Of_Season_Booleans[0])
-            print("Red War Toggleable: ", self.list_Of_Season_Booleans[0])
         elif button.objectName() == "osiris_Toggleable":
-            print("Osiris Toggleable: ", self.list_Of_Season_Booleans[1])
             self.list_Of_Season_Booleans[1] = not self.list_Of_Season_Booleans[1]
-            print("Osiris Toggleable: ", self.list_Of_Season_Booleans[1])
         elif button.objectName() == "warmind_Toggleable":
             self.list_Of_Season_Booleans[2] = not self.list_Of_Season_Booleans[2]
         elif button.objectName() == "outlaw_Toggleable":
@@ -895,6 +832,4 @@ class Ui_MainWindow(object):
         elif button.objectName() == "lost_Toggleable":
             self.list_Of_Season_Booleans[14] = not self.list_Of_Season_Booleans[14]
         elif button.objectName() == "risen_Toggleable":
-            print("Risen Toggleable: ", self.list_Of_Season_Booleans[15])
             self.list_Of_Season_Booleans[15] = not self.list_Of_Season_Booleans[15]
-            print("Risen Toggleable: ", self.list_Of_Season_Booleans[15])
