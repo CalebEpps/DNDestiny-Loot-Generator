@@ -18,9 +18,11 @@ Weapons can be rolled regardless of which class type is selected. Perks are pull
 - Designed from the ground up to work seamlessly in a DNDestiny campaign session
 - Offline support so you can take your laptop to your outdoor DND sessions
 - Editable JSON file for weapon perks (More Flexibility soon)
+- Loot is printed to a text file in the root folder. :)
 ### Known Bugs
 - Obscure crashes
 - May run slower on older machines
+- - Crash on first launch *SOMETIMES*
 
 ### Upcoming Feautures
 - Screenshot button to save your roll
