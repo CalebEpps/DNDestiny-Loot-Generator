@@ -83,6 +83,7 @@ class dbOps:
     def initializationRun(self):
         if os.path.exists(self.databasePath):
             print("Program Has Started!")
+            print("Check the file \"Inventory.txt\" found in the directory with the exe for your rolls!")
             self.db.destinyDict = pandas.read_pickle(self.databasePath)
         else:
             print("Files Missing. One moment....")

@@ -1,4 +1,5 @@
 import json
+import os.path
 import random
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -7,7 +8,6 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 # SEE STARTPROGRAM.PY FOR INITIALIZATION
 
 import GeneratedLoot
-import NoAvailableLoot
 from GenerateDB import GenerateDB
 from dbOps import dbOps
 
@@ -755,6 +755,22 @@ class Ui_MainWindow(object):
         print("Season:", randomItemDict['season'])
         print("Rarity:", randomItemDict['Rarity'])
 
+        # Check if File Exists, Label as Inventory if not
+        if not os.path.exists("Inventory.txt"):
+            lootInventory = open("Inventory.txt", "a")
+            lootInventory.write("CHARACTER INVENTORY")
+        else:
+            lootInventory = open("Inventory.txt", "a")
+
+        lootInventory.write("\n\n***********************\n")
+        lootInventory.write("Name: " + randomItem + "\n")
+        lootInventory.write("Type: " + randomItemDict['type'] + "\n")
+        lootInventory.write("Season: " + str(randomItemDict['season']) + "\n")
+        lootInventory.write("Rarity: " + randomItemDict['Rarity'] + "\n")
+
+
+
+
         if 'screenshot' in randomItemDict:
             # Make Screenshot Link
             screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
@@ -767,6 +783,12 @@ class Ui_MainWindow(object):
         else:
             armorType = "None"
             perks = self.getRandomPerks(randomItemDict['type'])
+            lootInventory.write("Perk 1: " + perks[0] + "\n")
+            lootInventory.write("Perk 2: " + perks[1] + "\n")
+            lootInventory.write("Perk 3: " + perks[2] + "\n")
+
+        lootInventory.write("***********************\n")
+        lootInventory.close()
 
         # Create new Dialog Box with Returned Roll and send params to GeneratedLoot.py
         self.randomDropWindow = QtWidgets.QDialog()
