@@ -22,7 +22,7 @@ Weapons can be rolled regardless of which class type is selected. Perks are pull
 ### Known Bugs
 - Obscure crashes
 - May run slower on older machines
-- - Crash on first launch *SOMETIMES*
+- Crash on first launch *SOMETIMES*
 
 ### Upcoming Feautures
 - Screenshot button to save your roll
