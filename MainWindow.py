@@ -654,6 +654,8 @@ class Ui_MainWindow(object):
 
     # get the checked class type
     def getClassType(self):
+        if self.warlock_RB is None:
+            return random.randrange(2)
         if self.warlock_RB.isChecked():
             print("Warlock")
             classType = 2
@@ -696,7 +698,8 @@ class Ui_MainWindow(object):
                     if self.list_Of_Season_Booleans[itemDictionary[i]['season'] - 1]:
                         list_Of_Allowed_items.append(i)
                 except IndexError:
-                    print("Index our of bounds maybe?")
+                    print("Adding for Discord Bot")
+                    list_Of_Allowed_items.append(i)
 
         return list_Of_Allowed_items
 
@@ -768,9 +771,6 @@ class Ui_MainWindow(object):
         lootInventory.write("Season: " + str(randomItemDict['season']) + "\n")
         lootInventory.write("Rarity: " + randomItemDict['Rarity'] + "\n")
 
-
-
-
         if 'screenshot' in randomItemDict:
             # Make Screenshot Link
             screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
@@ -799,6 +799,74 @@ class Ui_MainWindow(object):
 
         self.randomDropWindow.show()
 
+    def printRandomLoot(self):
+        randomItem = self.returnRandomLoot()
+        if randomItem is None:
+            return
+        randomItemDict = self.destinyDB.get(randomItem)
+        # Prevents the program from crashing if the item doesn't have a season. Only affects some items, I'm not too
+        # sure how to fix it right now.
+        # if randomItemDict['season'] is None or randomItemDict['season'] == "No season Identified":
+        #     randomItemDict['season'] = 1
+        # TODO: If Screenshot is not available, then display 'no image available' image.
+        screenshot_Url = "No Screenshot Available"
+        perks = None
+
+        # prints the random roll information to the terminal.
+        print('------------------------------')
+        print("YOUR RANDOM ROLL IS:")
+        print("Name: ", randomItem)
+        print("Type: ", randomItemDict['type'])
+        print("Season:", randomItemDict['season'])
+        print("Rarity:", randomItemDict['Rarity'])
+
+        if 'screenshot' in randomItemDict:
+            # Make Screenshot Link
+            screenshot_Url = self.generateScreenshotUrl(randomItemDict['screenshot'])
+            print("Screenshot: ", screenshot_Url)
+        else:
+            print(screenshot_Url)
+
+        if randomItemDict['classType'] != 3:
+            armorType = randomItemDict['armor tier']
+        else:
+            armorType = "None"
+            perks = self.getRandomPerks(randomItemDict['type'])
+
+        if armorType is None:
+            return (self.lootToString(randomItem, randomItemDict['type'], randomItemDict['season'], randomItemDict['Rarity'],
+                                randomItemDict['classType'], perks))
+        else:
+            return (self.lootToString(randomItem, randomItemDict['type'], randomItemDict['season'], randomItemDict['Rarity'],
+                                randomItemDict['classType'], perks, armorType=armorType))
+
+    def lootToString(self, name, type, season, rarity, classType, perks, armorType="None"):
+        returnStr = "Name: " + name
+        returnStr += "\nType: " + type
+        returnStr += "\nSeason: " + str(season)
+        returnStr += "\nRarity: " + rarity
+
+        if armorType != "None":
+            returnStr += "\n Class: " + self.getClassName(classType)
+            returnStr += "\n Armor Type: " + armorType
+
+        if classType == 3:
+            returnStr += "\nPerk 1: " + perks[0]
+            returnStr += "\nPerk 2: " + perks[1]
+            returnStr += "\nPerk 3: " + perks[2]
+
+        return returnStr
+
+    def getClassName(self, classType):
+        if classType == 0:
+            return "Titan"
+        elif classType == 1:
+            return "Hunter"
+        elif classType == 2:
+            return "Warlock"
+        else:
+            return "Weapon"
+
     # Runs the item generator. May move item to its own class for easy access later.
     def engramGenerateClick(self):
         self.setAllowedEngrams()
@@ -806,7 +874,7 @@ class Ui_MainWindow(object):
 
     def openPopUpNoAvailableRolls(self):
         self.noAvailableLootWindow = QtWidgets.QDialog()
-        noLootUI = NoAvailableLoot.Ui_Dialog()
+        noLootUI = self.noAvailableLootWindow.Ui_Dialog()
         noLootUI.setupUi(self.noAvailableLootWindow)
         self.noAvailableLootWindow.show()
 
